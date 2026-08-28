@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Psychological Distance Section</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Optional font matching the screenshot -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+</head>
+
+<body class="m-0 bg-[#4A0957]">
+
+  <!-- =========================================================
+       PSYCHOLOGICAL DISTANCE / SERVICE SECTION
+  ========================================================== -->
+
+  <section
+    class="
+      relative
+      w-full
+      min-h-screen
+      overflow-hidden
+      text-white
+      font-[Inter]
+      bg-[radial-gradient(circle_at_18%_-8%,#E5C0EA_0%,#B56AC0_8%,#64116F_25%,#4D0A5B_47%,#4A0957_68%,#4A0957_100%)]
+    "
+  >
+
+    <!-- =======================================================
+         MAIN CONTENT WRAPPER
+    ======================================================== -->
+
+    <div
+      class="
+        relative
+        mx-auto
+        h-[869px]
+        w-full
+        max-w-[955px]
+        overflow-hidden
+      "
+    >
+
+      <!-- =====================================================
+           TOP LEFT HEADING
+      ====================================================== -->
+
+      <h2
+        class="
+          absolute
+          left-[60px]
+          top-[143px]
+          z-30
+          m-0
+          w-[210px]
+          text-[29px]
+          font-normal
+          leading-[1.35]
+          tracking-[-0.7px]
+          text-white
+        "
+      >
+        This Service Is<br />
+        For You If...
+      </h2>
+
+
+      <!-- =====================================================
+           ORBIT SYSTEM
+      ====================================================== -->
+
+      <div
+        class="
+          absolute
+          left-[234px]
+          top-[167px]
+          z-10
+          h-[637px]
+          w-[535px]
+          rounded-[50%]
+          border
+          border-white/20
+        "
+      ></div>
+
+
+      <!-- =====================================================
+           CENTER CIRCLE
+      ====================================================== -->
+
+      <div
+        class="
+          absolute
+          left-[276px]
+          top-[312px]
+          z-20
+          h-[347px]
+          w-[347px]
+          overflow-hidden
+          rounded-full
+          bg-[radial-gradient(circle_at_48%_24%,#FFFFFF_0%,#F8E7FC_23%,#E6B8EF_45%,#B66BDD_68%,#8B39A9_100%)]
+          shadow-[0_0_55px_rgba(238,196,255,0.20)]
+        "
+      >
+
+        <!-- =================================================
+             CIRCLE LIGHT / GLOSS
+        ================================================== -->
+
+        <div
+          class="
+            absolute
+            -left-[35px]
+            top-[86px]
+            h-[125px]
+            w-[430px]
+            rotate-[-18deg]
+            bg-white/30
+            blur-[2px]
+          "
+        ></div>
+
+        <div
+          class="
+            absolute
+            left-[35px]
+            top-[230px]
+            h-[55px]
+            w-[275px]
+            rounded-full
+            bg-[#EBD8F5]/40
+            blur-[15px]
+          "
+        ></div>
+
+
+        <!-- =================================================
+             SHIELD
+        ================================================== -->
+
+        <svg
+          class="
+            absolute
+            left-1/2
+            top-1/2
+            h-[205px]
+            w-[205px]
+            -translate-x-1/2
+            -translate-y-1/2
+          "
+          viewBox="0 0 300 300"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+
+          <defs>
+
+            <linearGradient
+              id="shieldOuter"
+              x1="70"
+              y1="55"
+              x2="235"
+              y2="250"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0" stop-color="#FFFFFF" stop-opacity=".92"/>
+              <stop offset=".42" stop-color="#FFFFFF" stop-opacity=".72"/>
+              <stop offset="1" stop-color="#F5E6FF" stop-opacity=".38"/>
+            </linearGradient>
+
+            <linearGradient
+              id="shieldInner"
+              x1="95"
+              y1="90"
+              x2="215"
+              y2="225"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0" stop-color="#FFFFFF" stop-opacity=".82"/>
+              <stop offset=".48" stop-color="#FFFFFF" stop-opacity=".50"/>
+              <stop offset="1" stop-color="#EBCBFF" stop-opacity=".24"/>
+            </linearGradient>
+
+            <linearGradient
+              id="shieldGlow"
+              x1="120"
+              y1="85"
+              x2="195"
+              y2="215"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0" stop-color="#FFFFFF" stop-opacity=".42"/>
+              <stop offset=".55" stop-color="#B768D4" stop-opacity=".42"/>
+              <stop offset="1" stop-color="#6E198E" stop-opacity=".18"/>
+            </linearGradient>
+
+            <filter
+              id="shieldBlur"
+              x="-50%"
+              y="-50%"
+              width="200%"
+              height="200%"
+            >
+              <feGaussianBlur stdDeviation="10"/>
+            </filter>
+
+          </defs>
+
+
+          <!-- soft glow behind shield -->
+
+          <path
+            d="
+              M150 39
+              C150 39 89 67 69 67
+              V133
+              C69 193 103 237 150 258
+              C197 237 231 193 231 133
+              V67
+              C211 67 150 39 150 39Z
+            "
+            fill="#DFA8F2"
+            opacity=".45"
+            filter="url(#shieldBlur)"
+          />
+
+
+          <!-- outer shield -->
+
+          <path
+            d="
+              M150 32
+              C150 32 87 63 64 63
+              V126
+              C64 191 100 239 150 264
+              C200 239 236 191 236 126
+              V63
+              C213 63 150 32 150 32Z
+            "
+            fill="url(#shieldOuter)"
+            fill-opacity=".20"
+            stroke="url(#shieldOuter)"
+            stroke-width="4"
+          />
+
+
+          <!-- inner shield -->
+
+          <path
+            d="
+              M150 57
+              C150 57 106 80 84 80
+              V131
+              C84 180 111 216 150 237
+              C189 216 216 180 216 131
+              V80
+              C194 80 150 57 150 57Z
+            "
+            fill="url(#shieldInner)"
+            fill-opacity=".22"
+            stroke="url(#shieldInner)"
+            stroke-width="3"
+          />
+
+
+          <!-- purple internal glow -->
+
+          <path
+            d="
+              M150 73
+              C150 73 113 91 99 91
+              V132
+              C99 169 119 198 150 216
+              C181 198 201 169 201 132
+              V91
+              C187 91 150 73 150 73Z
+            "
+            fill="url(#shieldGlow)"
+          />
+
+        </svg>
+
+      </div>
+
+
+      <!-- =====================================================
+           ORBIT DOT — TOP
+      ====================================================== -->
+
+      <div
+        class="
+          absolute
+          left-[524px]
+          top-[171px]
+          z-30
+          h-[12px]
+          w-[12px]
+          rounded-full
+          border
+          border-[#F6D7FF]
+          bg-[#B85BCE]
+          shadow-[0_0_7px_rgba(255,213,255,.55)]
+        "
+      ></div>
+
+
+      <!-- =====================================================
+           TOP LABEL
+      ====================================================== -->
+
+      <span
+        class="
+          absolute
+          left-[536px]
+          top-[159px]
+          z-30
+          whitespace-nowrap
+          text-[17px]
+          font-normal
+          tracking-[-0.3px]
+          text-white/85
+        "
+      >
+        Survey Distrust
+      </span>
+
+
+      <!-- =====================================================
+           RIGHT TOP DOT
+      ====================================================== -->
+
+      <div
+        class="
+          absolute
+          left-[716px]
+          top-[314px]
+          z-30
+          h-[8px]
+          w-[8px]
+          rounded-full
+          bg-[#F4D7FB]
+        "
+      ></div>
+
+
+      <!-- RIGHT TOP LABEL -->
+
+      <span
+        class="
+          absolute
+          left-[748px]
+          top-[329px]
+          z-30
+          whitespace-nowrap
+          text-[12px]
+          font-normal
+          text-white/90
+        "
+      >
+        HR Hesitation
+      </span>
+
+
+      <!-- =====================================================
+           RIGHT CENTER DOT
+      ====================================================== -->
+
+      <div
+        class="
+          absolute
+          left-[755px]
+          top-[555px]
+          z-30
+          h-[8px]
+          w-[8px]
+          rounded-full
+          bg-[#F4D7FB]
+        "
+      ></div>
+
+
+      <!-- RIGHT CENTER LABEL -->
+
+      <span
+        class="
+          absolute
+          left-[768px]
+          top-[575px]
+          z-30
+          whitespace-nowrap
+          text-[12px]
+          font-normal
+          text-white/90
+        "
+      >
+        Workplace Tension
+      </span>
+
+
+      <!-- =====================================================
+           LOWER RIGHT DOT
+      ====================================================== -->
+
+      <div
+        class="
+          absolute
+          left-[636px]
+          top-[737px]
+          z-30
+          h-[8px]
+          w-[8px]
+          rounded-full
+          bg-[#F4D7FB]
+        "
+      ></div>
+
+
+      <!-- LOWER RIGHT LABEL -->
+
+      <span
+        class="
+          absolute
+          left-[646px]
+          top-[761px]
+          z-30
+          whitespace-nowrap
+          text-[12px]
+          font-normal
+          text-white/90
+        "
+      >
+        Pre-Escalation Clarity
+      </span>
+
+
+      <!-- =====================================================
+           BOTTOM DOT
+      ====================================================== -->
+
+      <div
+        class="
+          absolute
+          left-[419px]
+          top-[798px]
+          z-30
+          h-[8px]
+          w-[8px]
+          rounded-full
+          bg-[#F4D7FB]
+        "
+      ></div>
+
+
+      <!-- BOTTOM LABEL -->
+
+      <span
+        class="
+          absolute
+          left-[319px]
+          top-[814px]
+          z-30
+          whitespace-nowrap
+          text-[12px]
+          font-normal
+          text-white/90
+        "
+      >
+        Career Protection
+      </span>
+
+
+      <!-- =====================================================
+           LOWER LEFT DOT
+      ====================================================== -->
+
+      <div
+        class="
+          absolute
+          left-[230px]
+          top-[716px]
+          z-30
+          h-[8px]
+          w-[8px]
+          rounded-full
+          bg-[#F4D7FB]
+        "
+      ></div>
+
+
+      <!-- LOWER LEFT LABEL -->
+
+      <span
+        class="
+          absolute
+          left-[118px]
+          top-[732px]
+          z-30
+          whitespace-nowrap
+          text-[12px]
+          font-normal
+          text-white/90
+        "
+      >
+        Leadership Conflict
+      </span>
+
+
+      <!-- =====================================================
+           ACTIVE CENTER LABEL
+      ====================================================== -->
+
+      <div
+        class="
+          absolute
+          left-[247px]
+          top-[619px]
+          z-30
+          text-[31px]
+          font-normal
+          leading-[1.08]
+          tracking-[-0.8px]
+          text-white
+        "
+      >
+        Survey<br />
+        Distrust
+      </div>
+
+
+      <!-- =====================================================
+           CENTER HORIZONTAL DOTTED GUIDE
+      ====================================================== -->
+
+      <div
+        class="
+          absolute
+          left-[238px]
+          top-[548px]
+          z-30
+          h-px
+          w-[481px]
+          border-t
+          border-dotted
+          border-[#009EFF]
+          opacity-80
+        "
+      ></div>
+
+
+      <!-- =====================================================
+           CENTER CROSS
+      ====================================================== -->
+
+      <div
+        class="
+          absolute
+          left-[476px]
+          top-[539px]
+          z-40
+          h-[22px]
+          w-[22px]
+        "
+      >
+        <span
+          class="
+            absolute
+            left-1/2
+            top-0
+            h-[29px]
+            w-px
+            -translate-x-1/2
+            rotate-45
+            bg-[#55C7FF]
+            opacity-80
+          "
+        ></span>
+
+        <span
+          class="
+            absolute
+            left-1/2
+            top-0
+            h-[29px]
+            w-px
+            -translate-x-1/2
+            -rotate-45
+            bg-[#55C7FF]
+            opacity-80
+          "
+        ></span>
+
+        <span
+          class="
+            absolute
+            left-1/2
+            top-1/2
+            h-[5px]
+            w-[5px]
+            -translate-x-1/2
+            -translate-y-1/2
+            rounded-full
+            bg-[#D9F4FF]
+          "
+        ></span>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>

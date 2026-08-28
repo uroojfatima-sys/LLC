@@ -1,0 +1,5013 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Away From Work</title>
+
+  <!-- Responsive policy: Tailwind lg breakpoint (1024px) is the desktop/mobile switch. -->
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Satoshi Font -->
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700&display=swap" rel="stylesheet" />
+
+  <style>
+    @font-face {
+      font-family: "Satoshi";
+      src: url("./fonts/Satoshi-Regular.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Satoshi";
+      src: url("./fonts/Satoshi-Medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Satoshi";
+      src: url("./fonts/Satoshi-Semibold.woff2") format("woff2");
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Satoshi";
+      src: url("./fonts/Satoshi-Bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+      font-family: "Satoshi", sans-serif;
+      background: #420A4B;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Story Section Styles */
+    #story,
+    #story * {
+      font-family: "Satoshi", sans-serif;
+      box-sizing: border-box;
+    }
+
+    #story {
+      width: 100%;
+      background: #f7d9fa;
+      color: #000000;
+      overflow: hidden;
+    }
+
+    .vertical-rl {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+    }
+
+    #story-panels {
+      display: flex;
+      width: 100%;
+      height: 520px;
+      gap: 0;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 10px 12px rgba(66, 10, 75, 0.20), 0 4px 5px rgba(66, 10, 75, 0.10);
+    }
+
+    #story-panels .story-card {
+      position: relative;
+      display: flex;
+      height: 520px;
+      min-width: 0;
+      flex-shrink: 0;
+      padding: 0;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      overflow: hidden;
+      text-align: left;
+      cursor: pointer;
+      flex: 1 1 0%;
+      transition: flex-basis 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        flex-grow 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.3s ease,
+        filter 0.3s ease;
+    }
+
+    #story-panels .story-card.closed {
+      flex: 1 1 0%;
+      min-width: 0;
+    }
+
+    #story-panels .story-card.open {
+      flex: 3.25 1 0%;
+      min-width: 0;
+    }
+
+    #story-panels .story-card:first-child {
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
+    }
+
+    #story-panels .story-card:last-child {
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
+    }
+
+    #story-panels .story-card:nth-child(1).closed {
+      background: #ba91c0;
+    }
+    #story-panels .story-card:nth-child(2).closed {
+      background: #75427f;
+    }
+    #story-panels .story-card:nth-child(3).closed {
+      background: #95649d;
+    }
+    #story-panels .story-card:nth-child(4).closed {
+      background: #b88ac0;
+    }
+
+    #story-panels .story-card.closed:hover {
+      filter: brightness(1.05);
+    }
+
+    #story-panels .story-card.open {
+      background: transparent;
+    }
+
+    #story-panels .story-card.open .story-card-active {
+      position: relative;
+      display: flex !important;
+      flex-direction: column;
+      width: calc(100% - 126px);
+      height: 100%;
+      margin-left: 126px;
+      flex-shrink: 0;
+      overflow: hidden;
+      background: linear-gradient(90deg, #f3c8f7 0%, #f5cafa 48%, #d69adb 100%);
+    }
+
+    #story-panels .story-card.open .story-card-collapsed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 10;
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      width: 126px;
+      height: 100%;
+      padding-top: 59px;
+      padding-bottom: 47px;
+      background: #ba91c0;
+      color: #ffffff;
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
+      flex-shrink: 0;
+    }
+
+    #story-panels .story-card.open .story-card-collapsed>span:first-child {
+      font-size: 27px;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    #story-panels .story-card.open .story-card-collapsed>span:last-child {
+      font-size: 21px;
+      font-weight: 400;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    #story-panels .story-card.closed .story-card-active {
+      display: none !important;
+    }
+
+    #story-panels .story-card.closed .story-card-collapsed {
+      position: relative;
+      display: flex !important;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+      padding-top: 59px;
+      padding-bottom: 47px;
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+
+    #story-panels .story-card.closed .story-card-collapsed>span:first-child {
+      font-size: 27px;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    #story-panels .story-card.closed .story-card-collapsed>span:last-child {
+      font-size: 21px;
+      font-weight: 400;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    #story-panels .story-card.open .story-card-active>div:first-child {
+      display: flex;
+      flex: 0 0 219px;
+      width: 100%;
+      gap: 20px;
+      padding: 54px 48px 0 48px;
+      flex-shrink: 0;
+    }
+
+    #story-panels .story-card.open .story-card-active>div:first-child>span {
+      display: block;
+      flex-shrink: 0;
+      width: 2px;
+      height: 120px;
+      margin-top: 0;
+      background: #5e126a !important;
+    }
+
+    #story-panels .story-card.open .story-card-active h3 {
+      margin: 0;
+      color: #000000 !important;
+      font-size: 38px;
+      font-weight: 500;
+      line-height: 1.12;
+      letter-spacing: -1px;
+    }
+
+    #story-panels .story-card.open .story-card-active p {
+      max-width: 700px;
+      margin-top: 22px;
+      color: rgba(75, 54, 77, 0.68) !important;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.75;
+      letter-spacing: -0.25px;
+    }
+
+    #story-panels .story-card.open .story-card-active>div:last-child {
+      position: relative;
+      width: 100%;
+      min-height: 0;
+      flex: 1;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .card-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 0;
+    }
+
+    .card-img-wrap img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      filter: saturate(0.72) contrast(1.05);
+    }
+
+    .img-gradient-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(243, 201, 246, 0.08) 0%, rgba(107, 20, 120, 0.20) 35%, rgba(49, 5, 59, 0.70) 100%);
+    }
+
+    #story>div {
+      width: 100%;
+      max-width: 1692px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #story .story-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      width: 100%;
+      min-height: 209px;
+      gap: 40px;
+    }
+
+    #story .story-heading {
+      max-width: 700px;
+      margin: 0;
+      color: #000000;
+      font-size: 58px;
+      font-weight: 700;
+      line-height: 1.32;
+      letter-spacing: -1.8px;
+    }
+
+    #story .story-header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      width: 510px;
+      max-width: 510px;
+      gap: 18px;
+      text-align: right;
+    }
+
+    #story .story-header-right p {
+      width: 100%;
+      margin: 0;
+      color: rgba(0, 0, 0, 0.52);
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 1.9;
+      letter-spacing: -0.2px;
+    }
+
+    #story .story-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 293px;
+      height: 81px;
+      margin-top: 2px;
+      padding: 0;
+      border-radius: 9999px;
+      background: #420a4b;
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1;
+      text-decoration: none;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+
+    #story .story-cta:hover {
+      background: #53105e;
+      transform: translateY(-1px);
+    }
+
+    .story-tab-mobile {
+      flex-shrink: 0;
+      border: 0;
+      cursor: pointer;
+      transition: background 0.25s ease, color 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .story-tab-mobile.is-active {
+      background: #420a4b;
+      color: #ffffff;
+    }
+
+    .story-tab-mobile:not(.is-active) {
+      background: rgba(0, 0, 0, 0.05);
+      color: rgba(0, 0, 0, 0.60);
+    }
+
+    #story-tabs-mobile {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+
+    #story-tabs-mobile::-webkit-scrollbar {
+      display: none;
+    }
+
+    .mobile-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 230px;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    .mobile-img-wrap img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .story-panel-mobile {
+      width: 100%;
+    }
+
+    .story-panel-mobile h3 {
+      color: #000000;
+    }
+
+    .story-panel-mobile p {
+      color: rgba(0, 0, 0, 0.55);
+    }
+
+    /* Responsive breakpoints - now using 1024px */
+    @media (max-width: 1400px) and (min-width: 1025px) {
+      #story {
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+
+      #story .story-heading {
+        font-size: 50px;
+        max-width: 620px;
+      }
+
+      #story .story-header-right {
+        width: 440px;
+        max-width: 440px;
+      }
+
+      #story .story-header-right p {
+        font-size: 16px;
+      }
+
+      #story-panels {
+        height: 500px;
+      }
+
+      #story-panels .story-card {
+        height: 500px;
+      }
+
+      #story-panels .story-card.open .story-card-active {
+        width: calc(100% - 108px);
+        margin-left: 108px;
+      }
+
+      #story-panels .story-card.open .story-card-collapsed {
+        width: 108px;
+      }
+
+      #story-panels .story-card.open .story-card-active>div:first-child {
+        padding-left: 38px;
+        padding-right: 32px;
+      }
+
+      #story-panels .story-card.open .story-card-active h3 {
+        font-size: 32px;
+      }
+
+      #story-panels .story-card.open .story-card-active p {
+        font-size: 17px;
+      }
+
+      #story-panels .story-card.open .story-card-collapsed>span:first-child {
+        font-size: 24px;
+      }
+
+      #story-panels .story-card.open .story-card-collapsed>span:last-child {
+        font-size: 18px;
+      }
+
+      #story-panels .story-card.closed .story-card-collapsed>span:first-child {
+        font-size: 24px;
+      }
+
+      #story-panels .story-card.closed .story-card-collapsed>span:last-child {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      #story {
+        padding-left: 28px;
+        padding-right: 28px;
+      }
+
+      #story .story-header {
+        flex-direction: column;
+        min-height: auto;
+        gap: 28px;
+      }
+
+      #story .story-heading {
+        font-size: 44px;
+        line-height: 1.15;
+        letter-spacing: -1px;
+        max-width: 700px;
+      }
+
+      #story .story-header-right {
+        align-items: flex-start;
+        width: 100%;
+        max-width: 520px;
+        text-align: left;
+      }
+
+      #story .story-header-right p {
+        font-size: 16px;
+        line-height: 1.65;
+      }
+
+      #story .story-cta {
+        width: 250px;
+        height: 64px;
+        font-size: 17px;
+      }
+
+      #story-panels {
+        display: none !important;
+      }
+
+      #story>div>.mt-8.md\:hidden {
+        display: block !important;
+      }
+
+      #story-tabs-mobile {
+        display: flex;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        gap: 8px;
+        padding-bottom: 8px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      #story-tabs-mobile::-webkit-scrollbar {
+        display: none;
+      }
+
+      .story-tab-mobile {
+        flex: 0 0 auto;
+        min-width: max-content;
+        padding: 10px 16px;
+        border-radius: 9999px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      #story {
+        padding-top: 50px;
+        padding-bottom: 60px;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      #story .story-heading {
+        font-size: 38px;
+        line-height: 1.12;
+      }
+
+      #story .story-header-right p {
+        font-size: 15px;
+      }
+
+      #story .story-cta {
+        width: 100%;
+        max-width: 290px;
+        height: 58px;
+        font-size: 15px;
+      }
+
+      #story-tabs-mobile {
+        display: flex;
+        gap: 8px;
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 8px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x proximity;
+      }
+
+      #story-tabs-mobile::-webkit-scrollbar {
+        display: none;
+      }
+
+      .story-tab-mobile {
+        min-width: max-content;
+        padding: 9px 15px;
+        border-radius: 9999px;
+        scroll-snap-align: start;
+      }
+
+      .story-tab-mobile span:first-child {
+        font-size: 10px;
+      }
+
+      .story-tab-mobile span:last-child {
+        font-size: 11px;
+      }
+
+      .story-panel-mobile h3 {
+        font-size: 24px;
+      }
+
+      .story-panel-mobile p {
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .mobile-img-wrap {
+        height: 220px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #story {
+        padding-top: 38px;
+        padding-bottom: 48px;
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      #story .story-heading {
+        font-size: 32px;
+      }
+
+      #story .story-header-right p {
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      #story .story-cta {
+        max-width: 100%;
+        height: 56px;
+      }
+
+      #story-tabs-mobile {
+        gap: 7px;
+        margin-right: -16px;
+        width: calc(100% + 16px);
+        padding-right: 16px;
+      }
+
+      .story-tab-mobile {
+        padding: 8px 13px;
+      }
+
+      .story-panel-mobile h3 {
+        font-size: 21px;
+      }
+
+      .story-panel-mobile p {
+        font-size: 13px;
+        line-height: 1.65;
+      }
+
+      .mobile-img-wrap {
+        height: 200px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      #story .story-heading {
+        font-size: 29px;
+      }
+
+      #story .story-header-right p {
+        font-size: 13px;
+      }
+
+      .story-tab-mobile {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .story-tab-mobile span:last-child {
+        font-size: 10px;
+      }
+
+      .mobile-img-wrap {
+        height: 180px;
+      }
+    }
+
+    /* Video styles */
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: none;
+    }
+
+    .video-wrapper.playing iframe {
+      display: block;
+    }
+
+    .video-wrapper.playing .video-thumbnail {
+      display: none;
+    }
+
+    .video-thumbnail {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #480755;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .video-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .play-btn {
+      position: absolute;
+      width: 72px;
+      height: 72px;
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s, background 0.2s;
+      pointer-events: auto;
+      border: none;
+      backdrop-filter: blur(2px);
+    }
+
+    .play-btn:hover {
+      transform: scale(1.07);
+      background: #ffffff;
+    }
+
+    .play-btn svg {
+      margin-left: 4px;
+      width: 28px;
+      height: 28px;
+      fill: #480755;
+    }
+
+    @media (max-width: 640px) {
+      .play-btn {
+        width: 60px;
+        height: 60px;
+      }
+
+      .play-btn svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    /* Psychological Distance Section */
+    #psychological-distance-section,
+    #psychological-distance-section * {
+      font-family: "Satoshi", sans-serif;
+    }
+
+    /* Clear Path Section */
+    .path-cards-scroll {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .path-cards-scroll::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+
+    /* Footer styles */
+    .afw-section {
+      font-family: "Satoshi", sans-serif;
+    }
+
+    /* Fix for hardcoded positioning and responsive issues */
+    .hero-section {
+      min-height: auto;
+      padding-bottom: 3rem;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-section {
+        min-height: 100vh;
+        padding-bottom: 0;
+      }
+    }
+
+    .hero-content-wrapper {
+      padding-top: 4rem;
+    }
+
+    @media (min-width: 640px) {
+      .hero-content-wrapper {
+        padding-top: 6rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-content-wrapper {
+        padding-top: 8rem;
+      }
+    }
+
+    /* Fix for brain illustration positioning */
+    .brain-illustration {
+      position: absolute;
+      right: 5vw;
+      bottom: -2.5vw;
+      z-index: 10;
+      width: 790px;
+      height: 820px;
+      max-width: 100vw;
+      pointer-events: none;
+    }
+
+    @media (max-width: 1024px) {
+      .brain-illustration {
+        right: -8vw;
+        bottom: 0;
+        width: 600px;
+        height: 620px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .brain-illustration {
+        right: -18vw;
+        bottom: 5px;
+        width: 460px;
+        height: 450px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .brain-illustration {
+        right: -28vw;
+        width: 370px;
+        height: 350px;
+      }
+    }
+
+    @media (max-width: 375px) {
+      .brain-illustration {
+        right: -34vw;
+        width: 320px;
+        height: 300px;
+      }
+    }
+
+    .trust-card {
+      position: relative;
+      z-index: 30;
+      margin-top: 2rem;
+      width: 402px;
+      max-width: calc(100vw - 40px);
+    }
+
+    @media (min-width: 1024px) {
+      .trust-card {
+        position: absolute;
+        bottom: 29px;
+        left: 6.75vw;
+        margin-top: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .trust-card {
+        width: calc(100vw - 40px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .trust-card {
+        width: calc(100vw - 28px);
+      }
+    }
+
+    @media (max-width: 375px) {
+      .trust-card {
+        width: calc(100vw - 20px);
+      }
+    }
+  </style>
+
+</head>
+
+<body class="min-h-screen overflow-x-hidden bg-[#420A4B] text-white">
+<!-- ========================================================= -->
+<!-- HERO -->
+<!-- ========================================================= -->
+
+<main
+  class="
+    relative
+    min-h-0
+    w-full
+    overflow-hidden
+    bg-[#420A4B]
+
+    lg:min-h-screen
+  "
+>
+
+  <!-- ======================================================= -->
+  <!-- HERO BACKGROUND -->
+  <!-- ======================================================= -->
+
+  <div
+    class="
+      pointer-events-none
+      absolute
+      inset-0
+      z-0
+      overflow-hidden
+      bg-[#420A4B]
+    "
+  >
+    <img
+      src="src/assets/images/hero.png"
+      alt=""
+      class="
+        absolute
+        inset-0
+        h-full
+        w-full
+        object-cover
+        object-center
+      "
+    />
+
+    <div
+      class="
+        absolute
+        inset-0
+        bg-[#420A4B]/30
+      "
+    ></div>
+  </div>
+
+
+  <!-- ======================================================= -->
+  <!-- HEADER -->
+  <!-- ======================================================= -->
+
+  <header
+    class="
+      relative
+      z-40
+      mx-auto
+      mt-[30px]
+      flex
+      h-[70px]
+      w-full
+      max-w-[1700px]
+      items-center
+      justify-between
+      px-[6vw]
+
+      max-2xl:px-[5vw]
+
+      max-xl:mt-[25px]
+      max-xl:px-[4vw]
+
+      max-lg:mt-[20px]
+      max-lg:px-[20px]
+
+      max-sm:px-[20px]
+
+      max-[480px]:px-[14px]
+
+      max-[375px]:px-[10px]
+    "
+  >
+
+    <!-- ===================================================== -->
+    <!-- LOGO -->
+    <!-- ===================================================== -->
+
+    <div
+      class="
+        flex
+        h-[55px]
+        w-auto
+        max-w-full
+        shrink-0
+        items-center
+      "
+    >
+
+      <img
+        src="src/assets/images/logo.png"
+        alt="Away From Work"
+        class="
+          block
+          h-auto
+          w-[230px]
+          max-w-full
+          object-contain
+
+          max-2xl:w-[220px]
+
+          max-xl:w-[205px]
+
+          max-lg:w-[180px]
+
+          max-md:w-[170px]
+
+          max-sm:w-[150px]
+
+          max-[375px]:w-[140px]
+        "
+      />
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- DESKTOP NAVIGATION -->
+    <!-- Tailwind lg = 1024px -->
+    <!-- ===================================================== -->
+
+    <nav
+      class="
+        absolute
+        left-1/2
+        top-1/2
+        hidden
+        -translate-x-1/2
+        -translate-y-1/2
+        items-center
+        rounded-full
+        border
+        border-[#00000080]
+        bg-transparent
+        p-[5px]
+
+        lg:flex
+      "
+    >
+
+      <!-- HOME -->
+
+      <a
+        href="#"
+        class="
+          flex
+          h-[38px]
+          shrink-0
+          items-center
+          rounded-full
+          bg-[#420A4B]
+          px-[25px]
+          text-[16px]
+          font-semibold
+          leading-none
+          text-white
+
+          max-xl:px-[20px]
+          max-xl:text-[15px]
+        "
+      >
+        Home
+      </a>
+
+
+      <!-- ABOUT -->
+
+      <a
+        href="#"
+        class="
+          flex
+          h-[42px]
+          shrink-0
+          items-center
+          rounded-full
+          px-[23px]
+          text-[16px]
+          font-semibold
+          leading-none
+          text-white
+          transition-opacity
+          duration-200
+          hover:opacity-70
+
+          max-xl:px-[18px]
+          max-xl:text-[15px]
+        "
+      >
+        About us
+      </a>
+
+
+      <!-- HOW IT WORKS -->
+
+      <a
+        href="#"
+        class="
+          flex
+          h-[42px]
+          shrink-0
+          items-center
+          rounded-full
+          px-[23px]
+          text-[16px]
+          font-semibold
+          leading-none
+          text-white
+          transition-opacity
+          duration-200
+          hover:opacity-70
+
+          max-xl:px-[18px]
+          max-xl:text-[15px]
+        "
+      >
+        How It Works
+      </a>
+
+
+      <!-- WHO IS THIS FOR -->
+
+      <a
+        href="#"
+        class="
+          flex
+          h-[42px]
+          shrink-0
+          items-center
+          rounded-full
+          px-[23px]
+          text-[16px]
+          font-semibold
+          leading-none
+          text-white
+          transition-opacity
+          duration-200
+          hover:opacity-70
+
+          max-xl:px-[18px]
+          max-xl:text-[15px]
+        "
+      >
+        Who Is This For
+      </a>
+
+    </nav>
+
+
+    <!-- ===================================================== -->
+    <!-- DESKTOP CTA -->
+    <!-- ===================================================== -->
+
+    <a
+      href="#"
+      class="
+        hidden
+        h-[54px]
+        shrink-0
+        items-center
+        justify-center
+        rounded-full
+        bg-[#420A4B]
+        px-[35px]
+        text-[20px]
+        font-normal
+        leading-none
+        text-white
+
+        lg:flex
+
+        max-xl:h-[50px]
+        max-xl:px-[25px]
+        max-xl:text-[17px]
+      "
+    >
+      Begin Confidentially
+    </a>
+
+
+    <!-- ===================================================== -->
+    <!-- MOBILE MENU BUTTON -->
+    <!-- ===================================================== -->
+
+    <button
+      id="mobile-menu-button"
+      type="button"
+      aria-label="Open menu"
+      aria-expanded="false"
+      class="
+        flex
+        h-[48px]
+        w-[48px]
+        shrink-0
+        items-center
+        justify-center
+        rounded-full
+        border
+        border-[#F9CAFF80]
+        bg-[#FFFFFF1F]
+        backdrop-blur-[6px]
+
+        lg:hidden
+
+        max-md:h-[46px]
+        max-md:w-[46px]
+
+        max-sm:h-[44px]
+        max-sm:w-[44px]
+
+        max-[375px]:h-[42px]
+        max-[375px]:w-[42px]
+      "
+    >
+
+      <span
+        class="
+          flex
+          flex-col
+          gap-[5px]
+        "
+      >
+
+        <span
+          class="
+            block
+            h-[2px]
+            w-[21px]
+            rounded-full
+            bg-white
+          "
+        ></span>
+
+        <span
+          class="
+            block
+            h-[2px]
+            w-[21px]
+            rounded-full
+            bg-white
+          "
+        ></span>
+
+        <span
+          class="
+            block
+            h-[2px]
+            w-[21px]
+            rounded-full
+            bg-white
+          "
+        ></span>
+
+      </span>
+
+    </button>
+
+
+    <!-- ===================================================== -->
+    <!-- MOBILE MENU -->
+    <!-- ===================================================== -->
+    <!-- JS intentionally NOT included yet -->
+    <!-- ===================================================== -->
+
+    <div
+      id="mobile-menu"
+      class="
+        absolute
+        left-[20px]
+        right-[20px]
+        top-[76px]
+        z-50
+        hidden
+        overflow-hidden
+        rounded-[20px]
+        border
+        border-[#F9CAFF80]
+        bg-[#420A4B]/95
+        p-[8px]
+        shadow-xl
+        backdrop-blur-[12px]
+
+        lg:hidden
+
+        max-sm:left-[16px]
+        max-sm:right-[16px]
+
+        max-[480px]:left-[14px]
+        max-[480px]:right-[14px]
+        max-[480px]:top-[72px]
+
+        max-[375px]:left-[10px]
+        max-[375px]:right-[10px]
+        max-[375px]:top-[68px]
+      "
+    >
+
+      <!-- HOME -->
+
+      <a
+        href="#"
+        class="
+          flex
+          h-[48px]
+          w-full
+          items-center
+          rounded-full
+          bg-[#420A4B]
+          px-[20px]
+          text-[15px]
+          font-semibold
+          text-white
+
+          max-sm:h-[46px]
+          max-sm:text-[14px]
+
+          max-[480px]:h-[44px]
+          max-[480px]:px-[17px]
+
+          max-[375px]:h-[42px]
+          max-[375px]:px-[15px]
+        "
+      >
+        Home
+      </a>
+
+
+      <!-- ABOUT -->
+
+      <a
+        href="#"
+        class="
+          flex
+          h-[48px]
+          w-full
+          items-center
+          rounded-full
+          px-[20px]
+          text-[15px]
+          font-semibold
+          text-white
+          transition-opacity
+          hover:opacity-70
+
+          max-sm:h-[46px]
+          max-sm:text-[14px]
+
+          max-[480px]:h-[44px]
+          max-[480px]:px-[17px]
+
+          max-[375px]:h-[42px]
+          max-[375px]:px-[15px]
+        "
+      >
+        About us
+      </a>
+
+
+      <!-- HOW IT WORKS -->
+
+      <a
+        href="#"
+        class="
+          flex
+          h-[48px]
+          w-full
+          items-center
+          rounded-full
+          px-[20px]
+          text-[15px]
+          font-semibold
+          text-white
+          transition-opacity
+          hover:opacity-70
+
+          max-sm:h-[46px]
+          max-sm:text-[14px]
+
+          max-[480px]:h-[44px]
+          max-[480px]:px-[17px]
+
+          max-[375px]:h-[42px]
+          max-[375px]:px-[15px]
+        "
+      >
+        How It Works
+      </a>
+
+
+      <!-- WHO IS THIS FOR -->
+
+      <a
+        href="#"
+        class="
+          flex
+          h-[48px]
+          w-full
+          items-center
+          rounded-full
+          px-[20px]
+          text-[15px]
+          font-semibold
+          text-white
+          transition-opacity
+          hover:opacity-70
+
+          max-sm:h-[46px]
+          max-sm:text-[14px]
+
+          max-[480px]:h-[44px]
+          max-[480px]:px-[17px]
+
+          max-[375px]:h-[42px]
+          max-[375px]:px-[15px]
+        "
+      >
+        Who Is This For
+      </a>
+
+
+      <!-- CTA -->
+
+      <a
+        href="#"
+        class="
+          mt-[6px]
+          flex
+          h-[52px]
+          w-full
+          items-center
+          justify-center
+          rounded-full
+          bg-[#F9CAFF]
+          px-[20px]
+          text-[15px]
+          font-semibold
+          text-[#420A4B]
+
+          max-sm:h-[50px]
+          max-sm:text-[14px]
+
+          max-[480px]:h-[48px]
+
+          max-[375px]:h-[46px]
+        "
+      >
+        Begin Confidentially
+      </a>
+
+    </div>
+
+  </header>
+
+
+  <!-- ======================================================= -->
+  <!-- HERO CONTENT -->
+  <!-- ======================================================= -->
+
+  <section
+    class="
+      relative
+      z-20
+      mx-auto
+      flex
+      min-h-0
+      w-full
+      max-w-[1700px]
+      flex-col
+      overflow-visible
+      px-[6vw]
+      pb-[45px]
+
+      max-2xl:px-[5vw]
+
+      max-xl:px-[4vw]
+
+      lg:min-h-[calc(100svh-100px)]
+      lg:pb-0
+
+      max-lg:px-[20px]
+      max-lg:pb-[45px]
+
+      max-sm:px-[20px]
+
+      max-[480px]:px-[14px]
+
+      max-[375px]:px-[10px]
+    "
+  >
+
+    <!-- ===================================================== -->
+    <!-- HERO LEFT CONTENT -->
+    <!-- ===================================================== -->
+
+    <div
+      class="
+        relative
+        z-20
+        flex
+        w-full
+        max-w-[790px]
+        flex-col
+
+        pt-[140px]
+
+        max-2xl:pt-[130px]
+
+        max-xl:pt-[115px]
+
+        max-[1100px]:pt-[85px]
+
+        max-[1000px]:pt-[75px]
+
+        max-md:pt-[70px]
+
+        max-sm:pt-[65px]
+
+        max-[480px]:pt-[55px]
+
+        max-[375px]:pt-[48px]
+      "
+    >
+
+      <!-- ================================================= -->
+      <!-- LABEL -->
+      <!-- ================================================= -->
+
+      <div
+        class="
+          mb-[27px]
+          flex
+          h-[39px]
+          w-fit
+          max-w-full
+          items-center
+          gap-[9px]
+          rounded-full
+          border
+          border-[#F9CAFF80]
+          bg-[#FFFFFF1F]
+          px-[18px]
+          backdrop-blur-[6px]
+
+          max-xl:mb-[25px]
+
+          max-[1100px]:mb-[23px]
+
+          max-sm:mb-[20px]
+
+          max-[480px]:mb-[18px]
+
+          max-[375px]:mb-[16px]
+        "
+      >
+
+        <img
+          src="src/assets/images/brain-icon.png"
+          alt=""
+          class="
+            h-[17px]
+            w-[17px]
+            shrink-0
+            object-contain
+
+            max-sm:h-[15px]
+            max-sm:w-[15px]
+          "
+        />
+
+        <span
+          class="
+            whitespace-nowrap
+            text-[13px]
+            font-medium
+            leading-none
+            text-white
+
+            max-sm:text-[12px]
+
+            max-[375px]:text-[11px]
+          "
+        >
+          Away From Work
+        </span>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- MAIN HEADING -->
+      <!-- ================================================= -->
+
+      <h1
+        class="
+          w-full
+          max-w-[790px]
+          text-[68px]
+          font-bold
+          leading-[1.22]
+          tracking-[-2.2px]
+          text-white
+
+          max-2xl:text-[64px]
+
+          max-xl:text-[60px]
+          max-xl:tracking-[-2px]
+
+          max-[1100px]:text-[52px]
+          max-[1100px]:leading-[1.17]
+          max-[1100px]:tracking-[-1.6px]
+
+          max-[1000px]:text-[50px]
+          max-[1000px]:leading-[1.16]
+          max-[1000px]:tracking-[-1.5px]
+
+          max-md:text-[46px]
+          max-md:tracking-[-1.4px]
+
+          max-sm:text-[42px]
+          max-sm:leading-[1.14]
+          max-sm:tracking-[-1.2px]
+
+          max-[480px]:text-[38px]
+          max-[480px]:leading-[1.12]
+          max-[480px]:tracking-[-1px]
+
+          max-[375px]:text-[34px]
+          max-[375px]:leading-[1.1]
+        "
+      >
+        A Safe Place to Share
+        <br />
+        What You Can't at Work
+      </h1>
+
+
+      <!-- ================================================= -->
+      <!-- DESCRIPTION -->
+      <!-- ================================================= -->
+
+      <p
+        class="
+          mt-[17px]
+          w-full
+          max-w-[710px]
+          text-[18px]
+          font-normal
+          leading-[1.8]
+          tracking-[-0.15px]
+          text-white/80
+
+          max-xl:text-[17px]
+
+          max-[1100px]:mt-[15px]
+          max-[1100px]:max-w-[650px]
+          max-[1100px]:text-[16px]
+          max-[1100px]:leading-[1.7]
+
+          max-md:max-w-[620px]
+
+          max-sm:text-[15px]
+          max-sm:leading-[1.65]
+
+          max-[480px]:text-[14px]
+
+          max-[375px]:text-[13px]
+        "
+      >
+        Private, one-to-one conversations designed for working adults who need
+        space, clarity, and honesty — without fear of workplace consequences.
+      </p>
+
+
+      <!-- ================================================= -->
+      <!-- PRIMARY CTA -->
+      <!-- ================================================= -->
+
+      <a
+        href="#"
+        class="
+          mt-[26px]
+          flex
+          h-[72px]
+          w-fit
+          min-w-[310px]
+          max-w-full
+          items-center
+          justify-center
+          rounded-full
+          bg-[#F9CAFF]
+          px-[34px]
+          text-[21px]
+          font-semibold
+          leading-none
+          text-[#420A4B]
+          transition-transform
+          duration-200
+          hover:scale-[1.02]
+
+          max-xl:h-[68px]
+          max-xl:text-[20px]
+
+          max-[1100px]:mt-[23px]
+          max-[1100px]:h-[62px]
+          max-[1100px]:min-w-[280px]
+          max-[1100px]:px-[28px]
+          max-[1100px]:text-[18px]
+
+          max-md:h-[60px]
+
+          max-sm:w-full
+          max-sm:min-w-0
+          max-sm:h-[58px]
+          max-sm:text-[16px]
+
+          max-[480px]:h-[55px]
+          max-[480px]:text-[15px]
+
+          max-[375px]:h-[52px]
+          max-[375px]:text-[14px]
+        "
+      >
+        Start a Private Conversation
+      </a>
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- BRAIN ILLUSTRATION -->
+    <!-- ===================================================== -->
+    <!--
+      1700px  → full size
+      1536px  → slightly smaller
+      1280px  → smaller
+      1100px  → final transition
+      1001px  → still visible
+      1000px  → COMPLETELY HIDDEN
+    -->
+    <!-- ===================================================== -->
+
+    <div
+      class="
+        pointer-events-none
+        absolute
+        right-[5vw]
+        bottom-[-2.5vw]
+        z-10
+        h-[820px]
+        w-[790px]
+        max-w-[52vw]
+
+        max-2xl:right-[4vw]
+
+        max-xl:right-[1vw]
+        max-xl:h-[700px]
+        max-xl:w-[680px]
+
+        max-[1100px]:right-[-1vw]
+        max-[1100px]:h-[620px]
+        max-[1100px]:w-[600px]
+
+        max-[1000px]:hidden
+      "
+    >
+
+      <!-- BRAIN LAYER 3 -->
+
+      <img
+        src="src/assets/images/brain-img3.png"
+        alt=""
+        class="
+          absolute
+          inset-0
+          mt-[10px]
+          h-full
+          w-full
+          max-w-full
+          object-contain
+        "
+      />
+
+
+      <!-- BRAIN LAYER 2 -->
+
+      <img
+        src="src/assets/images/brain-img2.png"
+        alt=""
+        class="
+          absolute
+          inset-0
+          ml-[40px]
+          mt-[55px]
+          h-1/2
+          w-full
+          max-w-full
+          object-contain
+
+          max-xl:ml-[30px]
+          max-xl:mt-[42px]
+
+          max-[1100px]:ml-[25px]
+          max-[1100px]:mt-[38px]
+        "
+      />
+
+
+      <!-- BRAIN LAYER 1 -->
+
+      <img
+        src="src/assets/images/brain-img1.png"
+        alt=""
+        class="
+          absolute
+          inset-0
+          h-full
+          w-full
+          max-w-full
+          object-contain
+        "
+      />
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- TRUST CARD -->
+    <!-- ===================================================== -->
+
+    <div
+      class="
+        relative
+        z-30
+        mt-[35px]
+        w-[402px]
+        max-w-full
+
+        lg:absolute
+        lg:bottom-[29px]
+        lg:left-[6.75vw]
+        lg:mt-0
+
+        max-[1100px]:w-[380px]
+
+        max-[1000px]:mt-[40px]
+
+        max-md:mt-[35px]
+        max-md:w-[390px]
+
+        max-sm:mt-[30px]
+        max-sm:w-full
+
+        max-[480px]:mt-[25px]
+
+        max-[375px]:mt-[22px]
+      "
+    >
+
+      <!-- ================================================= -->
+      <!-- TRUST TOP BAR -->
+      <!-- ================================================= -->
+
+      <div
+        class="
+          relative
+          h-[50px]
+          w-full
+          overflow-hidden
+          rounded-t-[9px]
+          border
+          border-b-0
+          border-[#F9CAFF80]
+          bg-[#FFFFFF1F]
+          backdrop-blur-[6px]
+
+          max-sm:h-[45px]
+
+          max-[480px]:h-[43px]
+
+          max-[375px]:h-[41px]
+        "
+      >
+
+        <div
+          class="
+            flex
+            h-full
+            min-w-0
+            items-center
+            px-[17px]
+
+            max-sm:px-[13px]
+
+            max-[480px]:px-[11px]
+
+            max-[375px]:px-[9px]
+          "
+        >
+
+          <p
+            class="
+              m-0
+              w-full
+              overflow-hidden
+              text-ellipsis
+              whitespace-nowrap
+              text-[15px]
+              font-normal
+              leading-none
+              text-white
+
+              max-xl:text-[14px]
+
+              max-sm:text-[13px]
+
+              max-[480px]:text-[12px]
+
+              max-[375px]:text-[10px]
+            "
+          >
+            Trusted by over 1,000+ working professionals
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- TRUST BOTTOM BAR -->
+      <!-- ================================================= -->
+
+      <div
+        class="
+          flex
+          h-[47px]
+          w-full
+          min-w-0
+          overflow-hidden
+
+          max-sm:h-[44px]
+
+          max-[480px]:h-[42px]
+
+          max-[375px]:h-[40px]
+        "
+      >
+
+        <!-- ================================================= -->
+        <!-- LEARN HOW IT WORKS -->
+        <!-- ================================================= -->
+
+        <div
+          class="
+            flex
+            h-full
+            min-w-0
+            flex-1
+            items-center
+            overflow-hidden
+            rounded-tr-[9px]
+            border-t
+            border-[#F9CAFF80]
+            bg-transparent
+            pl-[4px]
+            pr-[15px]
+
+            max-sm:pr-[10px]
+
+            max-[480px]:pr-[7px]
+
+            max-[375px]:pr-[5px]
+          "
+        >
+
+          <a
+            href="#"
+            class="
+              block
+              max-w-full
+              overflow-hidden
+              text-ellipsis
+              whitespace-nowrap
+              text-[22px]
+              font-normal
+              leading-none
+              text-white
+              underline
+              underline-offset-[5px]
+
+              max-xl:text-[20px]
+
+              max-lg:text-[19px]
+
+              max-sm:text-[17px]
+
+              max-[480px]:text-[14px]
+
+              max-[375px]:text-[12px]
+            "
+          >
+            Learn How It Works
+          </a>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- AVATAR AREA -->
+        <!-- ================================================= -->
+
+        <div
+          class="
+            relative
+            flex
+            h-[46px]
+            w-[195px]
+            shrink-0
+            items-center
+            justify-center
+            overflow-hidden
+            rounded-bl-[9px]
+            rounded-br-[9px]
+            border-b
+            border-r
+            border-[#F9CAFF80]
+            bg-[#FFFFFF1F]
+            backdrop-blur-[6px]
+
+            max-xl:w-[185px]
+
+            max-[1100px]:w-[175px]
+
+            max-sm:h-[44px]
+            max-sm:w-[155px]
+
+            max-[480px]:h-[42px]
+            max-[480px]:w-[125px]
+
+            max-[375px]:h-[40px]
+            max-[375px]:w-[112px]
+          "
+        >
+
+          <!-- DIVIDER -->
+
+          <div
+            class="
+              absolute
+              bottom-[6px]
+              left-0
+              top-[8px]
+              z-10
+              w-px
+              bg-[#F9CAFF80]
+            "
+          ></div>
+
+
+          <!-- AVATARS -->
+
+          <div
+            class="
+              flex
+              w-full
+              min-w-0
+              items-center
+              justify-center
+              overflow-hidden
+              px-[5px]
+            "
+          >
+
+            <div
+              class="
+                flex
+                max-w-full
+                shrink-0
+                items-center
+                overflow-hidden
+                -space-x-[5px]
+
+                max-sm:-space-x-[4px]
+
+                max-[375px]:-space-x-[3px]
+              "
+            >
+
+              <!-- AVATAR 1 -->
+
+              <span
+                class="
+                  block
+                  h-[35px]
+                  w-[35px]
+                  shrink-0
+                  rounded-full
+                  border-[1.5px]
+                  border-white
+                  bg-[#420A4B]
+
+                  max-xl:h-[33px]
+                  max-xl:w-[33px]
+
+                  max-[1100px]:h-[31px]
+                  max-[1100px]:w-[31px]
+
+                  max-sm:h-[28px]
+                  max-sm:w-[28px]
+
+                  max-[480px]:h-[24px]
+                  max-[480px]:w-[24px]
+
+                  max-[375px]:h-[22px]
+                  max-[375px]:w-[22px]
+                "
+              ></span>
+
+
+              <!-- AVATAR 2 -->
+
+              <span
+                class="
+                  block
+                  h-[35px]
+                  w-[35px]
+                  shrink-0
+                  rounded-full
+                  border-[1.5px]
+                  border-white
+                  bg-[#420A4B]
+
+                  max-xl:h-[33px]
+                  max-xl:w-[33px]
+
+                  max-[1100px]:h-[31px]
+                  max-[1100px]:w-[31px]
+
+                  max-sm:h-[28px]
+                  max-sm:w-[28px]
+
+                  max-[480px]:h-[24px]
+                  max-[480px]:w-[24px]
+
+                  max-[375px]:h-[22px]
+                  max-[375px]:w-[22px]
+                "
+              ></span>
+
+
+              <!-- AVATAR 3 -->
+
+              <span
+                class="
+                  block
+                  h-[35px]
+                  w-[35px]
+                  shrink-0
+                  rounded-full
+                  border-[1.5px]
+                  border-white
+                  bg-[#420A4B]
+
+                  max-xl:h-[33px]
+                  max-xl:w-[33px]
+
+                  max-[1100px]:h-[31px]
+                  max-[1100px]:w-[31px]
+
+                  max-sm:h-[28px]
+                  max-sm:w-[28px]
+
+                  max-[480px]:h-[24px]
+                  max-[480px]:w-[24px]
+
+                  max-[375px]:h-[22px]
+                  max-[375px]:w-[22px]
+                "
+              ></span>
+
+
+              <!-- AVATAR 4 -->
+
+              <span
+                class="
+                  block
+                  h-[35px]
+                  w-[35px]
+                  shrink-0
+                  rounded-full
+                  border-[1.5px]
+                  border-white
+                  bg-[#420A4B]
+
+                  max-xl:h-[33px]
+                  max-xl:w-[33px]
+
+                  max-[1100px]:h-[31px]
+                  max-[1100px]:w-[31px]
+
+                  max-sm:h-[28px]
+                  max-sm:w-[28px]
+
+                  max-[480px]:h-[24px]
+                  max-[480px]:w-[24px]
+
+                  max-[375px]:h-[22px]
+                  max-[375px]:w-[22px]
+                "
+              ></span>
+
+
+              <!-- AVATAR 5 -->
+
+              <span
+                class="
+                  block
+                  h-[35px]
+                  w-[35px]
+                  shrink-0
+                  rounded-full
+                  border-[1.5px]
+                  border-white
+                  bg-[#420A4B]
+
+                  max-xl:h-[33px]
+                  max-xl:w-[33px]
+
+                  max-[1100px]:h-[31px]
+                  max-[1100px]:w-[31px]
+
+                  max-sm:h-[28px]
+                  max-sm:w-[28px]
+
+                  max-[480px]:h-[24px]
+                  max-[480px]:w-[24px]
+
+                  max-[375px]:h-[22px]
+                  max-[375px]:w-[22px]
+                "
+              ></span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- DISCLAIMER -->
+      <!-- ================================================= -->
+
+      <p
+        class="
+          m-0
+          mt-[8px]
+          max-w-full
+          overflow-hidden
+          text-ellipsis
+          whitespace-nowrap
+          pl-[4px]
+          text-[12px]
+          font-normal
+          leading-none
+          text-white/70
+
+          max-sm:text-[10px]
+
+          max-[480px]:text-[9px]
+
+          max-[375px]:text-[8px]
+        "
+      >
+        Not therapy. Not legal advice. Independent and confidential.
+      </p>
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- SCROLL DOWN -->
+    <!-- ===================================================== -->
+
+    <div
+      class="
+        absolute
+        bottom-[28px]
+        right-[2.5vw]
+        z-30
+        hidden
+        flex-col
+        items-center
+
+        lg:flex
+      "
+    >
+
+      <span
+        class="
+          mb-[9px]
+          text-[11px]
+          font-normal
+          tracking-[0.3px]
+          text-white/65
+          [writing-mode:vertical-rl]
+        "
+      >
+        Scroll Down
+      </span>
+
+
+      <div
+        class="
+          relative
+          h-[108px]
+          w-px
+          bg-white/40
+        "
+      >
+
+        <span
+          class="
+            absolute
+            bottom-0
+            left-1/2
+            h-[11px]
+            w-[11px]
+            -translate-x-1/2
+            rotate-45
+            border-b
+            border-r
+            border-white/60
+          "
+        ></span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+ <!-- ========================================================= -->
+<!-- STORY SECTION -->
+<!-- ========================================================= -->
+
+<section
+  id="story"
+  class="w-full overflow-hidden px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24"
+>
+
+  <div>
+
+    <!-- HEADER -->
+    <div class="story-header">
+
+      <h2 class="story-heading">
+        Why People Don't Speak<br />
+        Honestly at Work
+      </h2>
+
+      <div class="story-header-right">
+
+        <p>
+          Most workplaces ask for honesty, but power dynamics, fear,
+          and long memories make silence the safer choice.
+        </p>
+
+        <a href="#why-silence" class="story-cta">
+          Why Silence Feels Safer
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- DESKTOP / TABLET STORY PANELS -->
+    <div
+      id="story-panels"
+      class="mt-10 lg:mt-14"
+      role="tablist"
+      aria-label="Reasons people stay silent at work"
+    >
+
+      <!-- ===================================================== -->
+      <!-- CARD 01 -->
+      <!-- ===================================================== -->
+
+      <button
+        type="button"
+        data-card="0"
+        role="tab"
+        aria-selected="true"
+        aria-expanded="true"
+        class="
+          story-card
+          open
+          transition-[flex,flex-basis,width]
+          duration-700
+          ease-[cubic-bezier(0.22,1,0.36,1)]
+          will-change-[flex,width]
+        "
+      >
+
+        <div
+          class="
+            story-card-collapsed
+            transition-[opacity,transform]
+            duration-500
+            ease-[cubic-bezier(0.22,1,0.36,1)]
+            will-change-[opacity,transform]
+          "
+        >
+
+          <span
+            class="
+              inline-block
+              min-w-[2ch]
+              max-w-[2ch]
+              whitespace-nowrap
+              text-center
+              leading-none
+            "
+          >
+            01
+          </span>
+
+          <span
+            class="
+              vertical-rl
+              inline-block
+              whitespace-nowrap
+              transition-[opacity,transform]
+              duration-500
+              ease-[cubic-bezier(0.22,1,0.36,1)]
+              will-change-[opacity,transform]
+            "
+          >
+            Fear of Consequences
+          </span>
+
+        </div>
+
+
+        <div
+          class="
+            story-card-active
+            transition-[opacity,transform]
+            duration-600
+            ease-[cubic-bezier(0.22,1,0.36,1)]
+            will-change-[opacity,transform]
+          "
+        >
+
+          <div>
+
+            <span></span>
+
+            <div>
+
+              <h3>
+                Fear of Retaliation
+              </h3>
+
+              <p>
+                Even well-intentioned feedback can quietly follow someone
+                through performance reviews, promotions, and exits.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div>
+
+            <div
+              class="
+                card-img-wrap
+                transition-[opacity,transform]
+                duration-700
+                ease-[cubic-bezier(0.22,1,0.36,1)]
+                will-change-[opacity,transform]
+              "
+            >
+
+              <img
+                src="src/assets/images/card-img.PNG"
+                alt="Fear of Retaliation"
+                class="
+                  transition-[opacity,transform]
+                  duration-700
+                  ease-[cubic-bezier(0.22,1,0.36,1)]
+                  will-change-[opacity,transform]
+                "
+              />
+
+              <div
+                class="
+                  img-gradient-overlay
+                  transition-opacity
+                  duration-500
+                  ease-out
+                "
+              ></div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </button>
+
+
+      <!-- ===================================================== -->
+      <!-- CARD 02 -->
+      <!-- ===================================================== -->
+
+      <button
+        type="button"
+        data-card="1"
+        role="tab"
+        aria-selected="false"
+        aria-expanded="false"
+        class="
+          story-card
+          closed
+          transition-[flex,flex-basis,width]
+          duration-700
+          ease-[cubic-bezier(0.22,1,0.36,1)]
+          will-change-[flex,width]
+        "
+      >
+
+        <div
+          class="
+            story-card-active
+            transition-[opacity,transform]
+            duration-600
+            ease-[cubic-bezier(0.22,1,0.36,1)]
+            will-change-[opacity,transform]
+          "
+        >
+
+          <div>
+
+            <span></span>
+
+            <div>
+
+              <h3>
+                Power Is Never Neutral
+              </h3>
+
+              <p>
+                Even in flat organizations, the person who signs your review
+                holds more say over your future than you hold over theirs.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div>
+
+            <div
+              class="
+                card-img-wrap
+                transition-[opacity,transform]
+                duration-700
+                ease-[cubic-bezier(0.22,1,0.36,1)]
+                will-change-[opacity,transform]
+              "
+            >
+
+              <img
+                src="src/assets/images/card-img.PNG"
+                alt="Power Is Never Neutral"
+                class="
+                  transition-[opacity,transform]
+                  duration-700
+                  ease-[cubic-bezier(0.22,1,0.36,1)]
+                  will-change-[opacity,transform]
+                "
+              />
+
+              <div
+                class="
+                  img-gradient-overlay
+                  transition-opacity
+                  duration-500
+                  ease-out
+                "
+              ></div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="
+            story-card-collapsed
+            transition-[opacity,transform]
+            duration-500
+            ease-[cubic-bezier(0.22,1,0.36,1)]
+            will-change-[opacity,transform]
+          "
+        >
+
+          <span
+            class="
+              inline-block
+              min-w-[2ch]
+              max-w-[2ch]
+              whitespace-nowrap
+              text-center
+              leading-none
+            "
+          >
+            02
+          </span>
+
+          <span
+            class="
+              vertical-rl
+              inline-block
+              whitespace-nowrap
+              transition-[opacity,transform]
+              duration-500
+              ease-[cubic-bezier(0.22,1,0.36,1)]
+              will-change-[opacity,transform]
+            "
+          >
+            Power Is Never Neutral
+          </span>
+
+        </div>
+
+      </button>
+
+
+      <!-- ===================================================== -->
+      <!-- CARD 03 -->
+      <!-- ===================================================== -->
+
+      <button
+        type="button"
+        data-card="2"
+        role="tab"
+        aria-selected="false"
+        aria-expanded="false"
+        class="
+          story-card
+          closed
+          transition-[flex,flex-basis,width]
+          duration-700
+          ease-[cubic-bezier(0.22,1,0.36,1)]
+          will-change-[flex,width]
+        "
+      >
+
+        <div
+          class="
+            story-card-active
+            transition-[opacity,transform]
+            duration-600
+            ease-[cubic-bezier(0.22,1,0.36,1)]
+            will-change-[opacity,transform]
+          "
+        >
+
+          <div>
+
+            <span></span>
+
+            <div>
+
+              <h3>
+                Surveys Aren't Safe
+              </h3>
+
+              <p>
+                "Anonymous" feedback is rarely anonymous in a team of six —
+                people self-censor the moment they suspect they can be
+                identified.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div>
+
+            <div
+              class="
+                card-img-wrap
+                transition-[opacity,transform]
+                duration-700
+                ease-[cubic-bezier(0.22,1,0.36,1)]
+                will-change-[opacity,transform]
+              "
+            >
+
+              <img
+                src="src/assets/images/card-img.PNG"
+                alt="Surveys Aren't Safe"
+                class="
+                  transition-[opacity,transform]
+                  duration-700
+                  ease-[cubic-bezier(0.22,1,0.36,1)]
+                  will-change-[opacity,transform]
+                "
+              />
+
+              <div
+                class="
+                  img-gradient-overlay
+                  transition-opacity
+                  duration-500
+                  ease-out
+                "
+              ></div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="
+            story-card-collapsed
+            transition-[opacity,transform]
+            duration-500
+            ease-[cubic-bezier(0.22,1,0.36,1)]
+            will-change-[opacity,transform]
+          "
+        >
+
+          <span
+            class="
+              inline-block
+              min-w-[2ch]
+              max-w-[2ch]
+              whitespace-nowrap
+              text-center
+              leading-none
+            "
+          >
+            03
+          </span>
+
+          <span
+            class="
+              vertical-rl
+              inline-block
+              whitespace-nowrap
+              transition-[opacity,transform]
+              duration-500
+              ease-[cubic-bezier(0.22,1,0.36,1)]
+              will-change-[opacity,transform]
+            "
+          >
+            Surveys Aren't Safe
+          </span>
+
+        </div>
+
+      </button>
+
+
+      <!-- ===================================================== -->
+      <!-- CARD 04 -->
+      <!-- ===================================================== -->
+
+      <button
+        type="button"
+        data-card="3"
+        role="tab"
+        aria-selected="false"
+        aria-expanded="false"
+        class="
+          story-card
+          closed
+          transition-[flex,flex-basis,width]
+          duration-700
+          ease-[cubic-bezier(0.22,1,0.36,1)]
+          will-change-[flex,width]
+        "
+      >
+
+        <div
+          class="
+            story-card-active
+            transition-[opacity,transform]
+            duration-600
+            ease-[cubic-bezier(0.22,1,0.36,1)]
+            will-change-[opacity,transform]
+          "
+        >
+
+          <div>
+
+            <span></span>
+
+            <div>
+
+              <h3>
+                Honesty Has a Memory
+              </h3>
+
+              <p>
+                Organizations rarely forget who spoke up, even when they
+                forget what was actually said.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div>
+
+            <div
+              class="
+                card-img-wrap
+                transition-[opacity,transform]
+                duration-700
+                ease-[cubic-bezier(0.22,1,0.36,1)]
+                will-change-[opacity,transform]
+              "
+            >
+
+              <img
+                src="src/assets/images/card-img.PNG"
+                alt="Honesty Has a Memory"
+                class="
+                  transition-[opacity,transform]
+                  duration-700
+                  ease-[cubic-bezier(0.22,1,0.36,1)]
+                  will-change-[opacity,transform]
+                "
+              />
+
+              <div
+                class="
+                  img-gradient-overlay
+                  transition-opacity
+                  duration-500
+                  ease-out
+                "
+              ></div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="
+            story-card-collapsed
+            transition-[opacity,transform]
+            duration-500
+            ease-[cubic-bezier(0.22,1,0.36,1)]
+            will-change-[opacity,transform]
+          "
+        >
+
+          <span
+            class="
+              inline-block
+              min-w-[2ch]
+              max-w-[2ch]
+              whitespace-nowrap
+              text-center
+              leading-none
+            "
+          >
+            04
+          </span>
+
+          <span
+            class="
+              vertical-rl
+              inline-block
+              whitespace-nowrap
+              transition-[opacity,transform]
+              duration-500
+              ease-[cubic-bezier(0.22,1,0.36,1)]
+              will-change-[opacity,transform]
+            "
+          >
+            Honesty Has a Memory
+          </span>
+
+        </div>
+
+      </button>
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- MOBILE -->
+    <!-- ===================================================== -->
+
+    <div class="mt-8 md:hidden">
+
+      <div id="story-tabs-mobile" role="tablist">
+
+        <button
+          type="button"
+          data-card="0"
+          class="
+            story-tab-mobile
+            is-active
+            rounded-full
+            px-4
+            py-2
+            text-xs
+            font-semibold
+            transition-all
+            duration-300
+            ease-out
+          "
+          aria-selected="true"
+        >
+
+          <span class="block text-[11px] font-semibold">
+            01
+          </span>
+
+          <span class="block whitespace-nowrap">
+            Fear of Consequences
+          </span>
+
+        </button>
+
+
+        <button
+          type="button"
+          data-card="1"
+          class="
+            story-tab-mobile
+            rounded-full
+            px-4
+            py-2
+            text-xs
+            font-semibold
+            transition-all
+            duration-300
+            ease-out
+          "
+          aria-selected="false"
+        >
+
+          <span class="block text-[11px] font-semibold">
+            02
+          </span>
+
+          <span class="block whitespace-nowrap">
+            Power Is Never Neutral
+          </span>
+
+        </button>
+
+
+        <button
+          type="button"
+          data-card="2"
+          class="
+            story-tab-mobile
+            rounded-full
+            px-4
+            py-2
+            text-xs
+            font-semibold
+            transition-all
+            duration-300
+            ease-out
+          "
+          aria-selected="false"
+        >
+
+          <span class="block text-[11px] font-semibold">
+            03
+          </span>
+
+          <span class="block whitespace-nowrap">
+            Surveys Aren't Safe
+          </span>
+
+        </button>
+
+
+        <button
+          type="button"
+          data-card="3"
+          class="
+            story-tab-mobile
+            rounded-full
+            px-4
+            py-2
+            text-xs
+            font-semibold
+            transition-all
+            duration-300
+            ease-out
+          "
+          aria-selected="false"
+        >
+
+          <span class="block text-[11px] font-semibold">
+            04
+          </span>
+
+          <span class="block whitespace-nowrap">
+            Honesty Has a Memory
+          </span>
+
+        </button>
+
+      </div>
+
+
+      <div class="mt-2 h-px w-full bg-black/10"></div>
+
+
+      <div id="story-content-mobile" class="mt-6">
+
+        <!-- MOBILE CARD 01 -->
+
+        <div
+          class="
+            story-panel-mobile
+            transition-[opacity,transform]
+            duration-500
+            ease-[cubic-bezier(0.22,1,0.36,1)]
+          "
+          data-card="0"
+        >
+
+          <div class="flex items-start gap-3">
+
+            <span
+              class="
+                mt-1.5
+                h-9
+                w-px
+                shrink-0
+                bg-[#6b1478]
+              "
+            ></span>
+
+            <div>
+
+              <h3 class="text-xl font-bold text-black">
+                Fear of Retaliation
+              </h3>
+
+              <p class="mt-2 text-sm leading-relaxed text-black/55">
+                Even well-intentioned feedback can quietly follow someone
+                through performance reviews, promotions, and exits.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              mobile-img-wrap
+              mt-5
+              transition-[opacity,transform]
+              duration-500
+              ease-[cubic-bezier(0.22,1,0.36,1)]
+            "
+          >
+
+            <img
+              src="src/assets/images/card-img.PNG"
+              alt="Fear of Retaliation"
+              class="
+                transition-[opacity,transform]
+                duration-500
+                ease-out
+              "
+            />
+
+            <div
+              class="
+                img-gradient-overlay
+                transition-opacity
+                duration-500
+                ease-out
+              "
+            ></div>
+
+          </div>
+
+        </div>
+
+
+        <!-- MOBILE CARD 02 -->
+
+        <div
+          class="
+            story-panel-mobile
+            hidden
+            transition-[opacity,transform]
+            duration-500
+            ease-[cubic-bezier(0.22,1,0.36,1)]
+          "
+          data-card="1"
+        >
+
+          <div class="flex items-start gap-3">
+
+            <span
+              class="
+                mt-1.5
+                h-9
+                w-px
+                shrink-0
+                bg-[#6b1478]
+              "
+            ></span>
+
+            <div>
+
+              <h3 class="text-xl font-bold text-black">
+                Power Is Never Neutral
+              </h3>
+
+              <p class="mt-2 text-sm leading-relaxed text-black/55">
+                Even in flat organizations, the person who signs your review
+                holds more say over your future than you hold over theirs.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              mobile-img-wrap
+              mt-5
+              transition-[opacity,transform]
+              duration-500
+              ease-[cubic-bezier(0.22,1,0.36,1)]
+            "
+          >
+
+            <img
+              src="src/assets/images/card-img.PNG"
+              alt="Power Is Never Neutral"
+              class="
+                transition-[opacity,transform]
+                duration-500
+                ease-out
+              "
+            />
+
+            <div
+              class="
+                img-gradient-overlay
+                transition-opacity
+                duration-500
+                ease-out
+              "
+            ></div>
+
+          </div>
+
+        </div>
+
+
+        <!-- MOBILE CARD 03 -->
+
+        <div
+          class="
+            story-panel-mobile
+            hidden
+            transition-[opacity,transform]
+            duration-500
+            ease-[cubic-bezier(0.22,1,0.36,1)]
+          "
+          data-card="2"
+        >
+
+          <div class="flex items-start gap-3">
+
+            <span
+              class="
+                mt-1.5
+                h-9
+                w-px
+                shrink-0
+                bg-[#6b1478]
+              "
+            ></span>
+
+            <div>
+
+              <h3 class="text-xl font-bold text-black">
+                Surveys Aren't Safe
+              </h3>
+
+              <p class="mt-2 text-sm leading-relaxed text-black/55">
+                "Anonymous" feedback is rarely anonymous in a team of six —
+                people self-censor the moment they suspect they can be
+                identified.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              mobile-img-wrap
+              mt-5
+              transition-[opacity,transform]
+              duration-500
+              ease-[cubic-bezier(0.22,1,0.36,1)]
+            "
+          >
+
+            <img
+              src="src/assets/images/card-img.PNG"
+              alt="Surveys Aren't Safe"
+              class="
+                transition-[opacity,transform]
+                duration-500
+                ease-out
+              "
+            />
+
+            <div
+              class="
+                img-gradient-overlay
+                transition-opacity
+                duration-500
+                ease-out
+              "
+            ></div>
+
+          </div>
+
+        </div>
+
+
+        <!-- MOBILE CARD 04 -->
+
+        <div
+          class="
+            story-panel-mobile
+            hidden
+            transition-[opacity,transform]
+            duration-500
+            ease-[cubic-bezier(0.22,1,0.36,1)]
+          "
+          data-card="3"
+        >
+
+          <div class="flex items-start gap-3">
+
+            <span
+              class="
+                mt-1.5
+                h-9
+                w-px
+                shrink-0
+                bg-[#6b1478]
+              "
+            ></span>
+
+            <div>
+
+              <h3 class="text-xl font-bold text-black">
+                Honesty Has a Memory
+              </h3>
+
+              <p class="mt-2 text-sm leading-relaxed text-black/55">
+                Organizations rarely forget who spoke up, even when they
+                forget what was actually said.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div
+            class="
+              mobile-img-wrap
+              mt-5
+              transition-[opacity,transform]
+              duration-500
+              ease-[cubic-bezier(0.22,1,0.36,1)]
+            "
+          >
+
+            <img
+              src="src/assets/images/card-img.PNG"
+              alt="Honesty Has a Memory"
+              class="
+                transition-[opacity,transform]
+                duration-500
+                ease-out
+              "
+            />
+
+            <div
+              class="
+                img-gradient-overlay
+                transition-opacity
+                duration-500
+                ease-out
+              "
+            ></div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+  <!-- ========================================================= -->
+  <!-- VIDEO / PSYCHOLOGICAL DISTANCE SECTION -->
+  <!-- ========================================================= -->
+
+  <section class="w-full overflow-hidden bg-[#FBDAFF] bg-[radial-gradient(ellipse_at_bottom_right,#480755_0%,#480755_10%,#FBDAFF_70%)] h-auto min-h-[750px] py-8 sm:py-10 md:py-12 lg:h-[750px] lg:min-h-0 lg:py-0">
+
+    <div class="relative z-10 mx-auto grid w-full max-w-[1620px] grid-cols-1 items-center gap-8 px-4 sm:px-6 md:px-8 lg:grid-cols-2 lg:gap-16 lg:px-0">
+
+      <!-- LEFT — VIDEO CARD -->
+      <div class="relative mt-[0px] aspect-[4/3] w-full max-w-full overflow-hidden rounded-[28px] bg-[#480755] shadow-[0_25px_70px_rgba(72,7,85,0.25)] sm:rounded-[28px] lg:aspect-[16/13]">
+
+        <div class="video-wrapper" id="videoWrapper">
+
+          <div class="video-thumbnail relative" id="thumbnail">
+            <img src="src/assets/images/why-distance-works.png" alt="Video thumbnail" class="h-full w-full object-cover" />
+            <button class="play-btn absolute right-3 top-3 sm:right-5 sm:top-5" id="playBtn" aria-label="Play video">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5,3 19,12 5,21 5,3" />
+              </svg>
+            </button>
+          </div>
+
+          <iframe id="videoIframe" src="https://www.youtube.com/embed/ZEKi15kPPMY?si=jfSZJikNtipffRcl&autoplay=1" title="Why Psychological Distance Works" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+          </iframe>
+
+        </div>
+
+        <div class="pointer-events-none absolute inset-0" style="background: linear-gradient(180deg, rgba(72,7,85,0.08) 0%, rgba(72,7,85,0) 45%, rgba(72,7,85,0.22) 100%);">
+        </div>
+
+        <a href="#" class="absolute bottom-3 left-3 flex min-h-[40px] w-[calc(100%-24px)] max-w-[350px] items-center justify-center rounded-full bg-white px-4 text-center text-sm font-light text-[#480755] shadow-[0_10px_25px_rgba(0,0,0,0.2)] transition-transform duration-200 hover:scale-[1.02] sm:bottom-6 sm:left-6 sm:w-[350px] sm:px-6 sm:text-[17px]">
+          Start a Confidential Conversation
+        </a>
+
+      </div>
+
+      <!-- RIGHT — CONTENT -->
+      <div class="flex min-w-0 flex-col">
+
+        <h2 class="max-w-[940px] text-[32px] font-[590] leading-[1.15] tracking-tight text-[#000000] sm:text-[38px] md:text-[44px] lg:text-[56px]">
+          Why Psychological Distance Unlocks Honest Conversation
+        </h2>
+
+        <p class="mt-5 max-w-[680px] text-sm leading-relaxed text-[#480755]/70 sm:text-[18px]">
+          Honesty is shaped by environment. When people remain tied to workplace
+          power and long-term consequences, they naturally hold back.
+        </p>
+
+        <a href="#" class="mt-7 inline-flex h-[60px] w-[230px] max-w-full items-center justify-center rounded-full bg-[#480755] px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[#5d1269] sm:h-[72px] sm:text-[18px]">
+          Why Distance Works
+        </a>
+
+        <div class="mt-9 grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2">
+
+          <div class="info-card flex min-h-[300px] min-w-0 flex-col rounded-2xl bg-[#EFC5F4] p-5 shadow-[0_10px_30px_rgba(72,7,85,0.08)] sm:p-6">
+            <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#8a5096]/20">
+              <img src="src/assets/images/icon1.png" alt="Safety Icon" class="h-14 w-14 object-contain" />
+            </div>
+            <h3 class="mt-4 break-words text-[21px] font-semibold text-[#480755] sm:text-[24px]">Safety Creates Clarity</h3>
+            <p class="mt-2 break-words text-[17px] leading-relaxed text-[#480755]/65 sm:text-[20px]">
+              When individuals are no longer tied to performance, reputation,
+              or hierarchy, they speak with greater accuracy and self-awareness.
+            </p>
+          </div>
+
+          <div class="info-card flex min-h-[300px] min-w-0 flex-col rounded-2xl bg-[#480755] p-5 shadow-[0_10px_30px_rgba(72,7,85,0.15)] sm:p-6">
+            <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[#F9CAFF]">
+              <img src="src/assets/images/icon2.png" alt="Honesty Icon" class="h-14 w-14 object-contain" />
+            </div>
+            <h3 class="mt-4 break-words text-[21px] font-bold text-white sm:text-[24px]">Safety Creates Clarity</h3>
+            <p class="mt-2 break-words text-[17px] leading-relaxed text-white/70 sm:text-[20px]">
+              Honesty isn't just about intent — it's about environment. Change
+              the setting, and the conversation changes with it.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- PSYCHOLOGICAL DISTANCE / SERVICE SECTION -->
+  <!-- ========================================================= -->
+
+  <section id="psychological-distance-section" class="relative w-full overflow-hidden bg-[#480755] bg-[linear-gradient(164.8deg,#FBDAFF_0.4%,#FBDAFF_0%,#480755_18.2%,#480755_100%)] text-white">
+
+    <div class="relative mx-auto h-[620px] w-full max-w-none sm:h-[720px] md:h-[850px] lg:h-[1100px] xl:h-[1900px] xl:w-[1400px]">
+
+      <span class="absolute z-40 m-0 left-[10vw] top-[65px] w-[220px] text-[27px] font-normal leading-[1.18] tracking-[-0.6px] sm:left-[6vw] sm:top-[80px] sm:w-[250px] sm:text-[31px] md:left-[7vw] md:top-[100px] md:w-[280px] md:text-[36px] lg:left-[8vw] lg:top-[140px] lg:w-[330px] lg:text-[45px] xl:left-[-140px] xl:top-[420px] xl:w-[390px] xl:text-[56px] xl:tracking-[-1.2px]">
+        This Service Is<br />
+        For You If...
+      </span>
+
+      <div class="absolute z-10 left-[-22%] top-[165px] h-[350px] w-[145%] sm:left-[-18%] sm:top-[190px] sm:h-[420px] sm:w-[135%] md:left-[-14%] md:top-[225px] md:h-[510px] md:w-[125%] lg:left-[-9%] lg:top-[280px] lg:h-[680px] lg:w-[118%] xl:left-[-50px] xl:top-[340px] xl:h-[1460px] xl:w-[1360px]">
+        <img src="src/assets/images/orbit.png" alt="Orbit" class="h-full w-full object-contain" />
+      </div>
+
+      <div class="absolute z-20 left-1/2 top-[250px] h-[190px] w-[190px] -translate-x-1/2 overflow-hidden rounded-full bg-[radial-gradient(circle_at_48%_23%,#FFFFFF_0%,#FBE9FD_18%,#EFC8F5_35%,#CF8AE0_58%,#A64CC3_78%,#87349F_100%)] shadow-[0_0_80px_rgba(239,190,255,0.22)] sm:top-[290px] sm:h-[230px] sm:w-[230px] md:top-[350px] md:h-[290px] md:w-[290px] lg:top-[440px] lg:h-[400px] lg:w-[400px] xl:left-[300px] xl:top-[770px] xl:h-[690px] xl:w-[690px] xl:translate-x-0">
+
+        <div class="absolute -left-[35px] top-[75px] h-[65px] w-[250px] rotate-[-18deg] bg-white/[0.28] sm:-left-[45px] sm:top-[90px] sm:h-[75px] sm:w-[300px] md:-left-[55px] md:top-[110px] md:h-[90px] md:w-[370px] lg:-left-[60px] lg:top-[135px] lg:h-[115px] lg:w-[480px] xl:-left-[70px] xl:top-[170px] xl:h-[190px] xl:w-[800px]"></div>
+
+        <div class="absolute left-[30px] top-[125px] h-[35px] w-[130px] rounded-full bg-[#F3DDF8]/40 blur-[12px] sm:left-[35px] sm:top-[150px] sm:h-[40px] sm:w-[160px] md:left-[40px] md:top-[180px] md:h-[45px] md:w-[190px] lg:left-[50px] lg:top-[240px] lg:h-[55px] lg:w-[300px] xl:left-[65px] xl:top-[440px] xl:h-[80px] xl:w-[520px] xl:blur-[20px]"></div>
+
+        <svg class="absolute left-1/2 top-1/2 h-[150px] w-[137px] -translate-x-1/2 -translate-y-1/2 sm:h-[180px] sm:w-[164px] md:h-[225px] md:w-[205px] lg:h-[330px] lg:w-[300px] xl:h-[555px] xl:w-[505px]" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+          <defs>
+            <linearGradient id="shieldOuter" x1="70" y1="55" x2="235" y2="250" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#FFFFFF" stop-opacity=".95" />
+              <stop offset=".42" stop-color="#FFFFFF" stop-opacity=".72" />
+              <stop offset="1" stop-color="#F5E6FF" stop-opacity=".38" />
+            </linearGradient>
+            <linearGradient id="shieldInner" x1="95" y1="90" x2="215" y2="225" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#FFFFFF" stop-opacity=".88" />
+              <stop offset=".48" stop-color="#FFFFFF" stop-opacity=".50" />
+              <stop offset="1" stop-color="#EBCBFF" stop-opacity=".24" />
+            </linearGradient>
+            <linearGradient id="shieldGlow" x1="120" y1="85" x2="195" y2="215" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#FFFFFF" stop-opacity=".46" />
+              <stop offset=".55" stop-color="#B768D4" stop-opacity=".45" />
+              <stop offset="1" stop-color="#6E198E" stop-opacity=".18" />
+            </linearGradient>
+            <filter id="shieldBlur" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="10" />
+            </filter>
+          </defs>
+
+          <path d="M150 39 C150 39 89 67 69 67 V133 C69 193 103 237 150 258 C197 237 231 193 231 133 V67 C211 67 150 39 150 39Z" fill="#DFA8F2" opacity=".45" filter="url(#shieldBlur)" />
+
+          <path d="M150 32 C150 32 87 63 64 63 V126 C64 191 100 239 150 264 C200 239 236 191 236 126 V63 C213 63 150 32 150 32Z" fill="url(#shieldOuter)" fill-opacity=".20" stroke="url(#shieldOuter)" stroke-width="4" />
+
+          <path d="M150 57 C150 57 106 80 84 80 V131 C84 180 111 216 150 237 C189 216 216 180 216 131 V80 C194 80 150 57 150 57Z" fill="url(#shieldInner)" fill-opacity=".22" stroke="url(#shieldInner)" stroke-width="3" />
+
+          <path d="M150 73 C150 73 113 91 99 91 V132 C99 169 119 198 150 216 C181 198 201 169 201 132 V91 C187 91 150 73 150 73Z" fill="url(#shieldGlow)" />
+
+        </svg>
+
+      </div>
+
+      <!-- Orbit points -->
+      <div class="absolute z-50 left-[65%] top-[180px] h-[12px] w-[12px] rounded-full border border-[#F6D7FF] bg-[#B85BCE] shadow-[0_0_10px_rgba(255,213,255,.65)] sm:left-[68%] sm:top-[215px] sm:h-[14px] sm:w-[14px] md:left-[70%] md:top-[255px] md:h-[16px] md:w-[16px] lg:left-[73%] lg:top-[300px] lg:h-[20px] lg:w-[20px] xl:left-[790px] xl:top-[400px] xl:h-[25px] xl:w-[25px]"></div>
+      <span class="absolute z-50 left-[calc(65%+18px)] top-[155px] whitespace-nowrap text-[17px] font-medium leading-[113%] tracking-[0%] text-[#F9CAFF] sm:left-[calc(68%+20px)] sm:top-[185px] sm:text-[20px] md:left-[calc(70%+22px)] md:top-[220px] md:text-[23px] lg:left-[calc(73%+24px)] lg:top-[265px] lg:text-[28px] xl:left-[815px] xl:top-[365px] xl:text-[35px]">Survey Distrust</span>
+
+      <div class="absolute z-50 left-[79%] top-[275px] h-[10px] w-[10px] rounded-full bg-[#F4D7FB] sm:left-[82%] sm:top-[335px] sm:h-[11px] sm:w-[11px] md:left-[83%] md:top-[410px] md:h-[13px] md:w-[13px] lg:left-[85%] lg:top-[520px] lg:h-[15px] lg:w-[15px] xl:left-[1195px] xl:top-[700px] xl:h-[18px] xl:w-[18px]"></div>
+      <span class="absolute z-50 left-[calc(79%+17px)] top-[285px] whitespace-nowrap text-[13px] font-medium leading-[113%] tracking-[0%] text-white/90 sm:left-[calc(82%+19px)] sm:top-[350px] sm:text-[15px] md:left-[calc(83%+22px)] md:top-[425px] md:text-[17px] lg:left-[calc(85%+28px)] lg:top-[540px] lg:text-[19px] xl:left-[1255px] xl:top-[730px] xl:text-[22px]">HR Hesitation</span>
+
+      <div class="absolute z-50 left-[80%] top-[380px] h-[10px] w-[10px] rounded-full bg-[#F4D7FB] sm:left-[83%] sm:top-[475px] sm:h-[11px] sm:w-[11px] md:left-[85%] md:top-[575px] md:h-[13px] md:w-[13px] lg:left-[88%] lg:top-[790px] lg:h-[15px] lg:w-[15px] xl:left-[1290px] xl:top-[1170px] xl:h-[18px] xl:w-[18px]"></div>
+      <span class="absolute z-50 left-[calc(80%+17px)] top-[395px] whitespace-nowrap text-[13px] font-medium leading-[113%] tracking-[0%] text-white/90 sm:left-[calc(83%+19px)] sm:top-[492px] sm:text-[15px] md:left-[calc(85%+22px)] md:top-[592px] md:text-[17px] lg:left-[calc(88%+25px)] lg:top-[810px] lg:text-[19px] xl:left-[1315px] xl:top-[1200px] xl:text-[22px]">Workplace Tension</span>
+
+      <div class="absolute z-50 left-[68%] top-[465px] h-[10px] w-[10px] rounded-full bg-[#F4D7FB] sm:left-[70%] sm:top-[585px] sm:h-[11px] sm:w-[11px] md:left-[72%] md:top-[700px] md:h-[13px] md:w-[13px] lg:left-[76%] lg:top-[900px] lg:h-[15px] lg:w-[15px] xl:left-[1110px] xl:top-[1530px] xl:h-[18px] xl:w-[18px]"></div>
+      <span class="absolute z-50 left-[calc(68%+17px)] top-[480px] whitespace-nowrap text-[13px] font-medium leading-[113%] tracking-[0%] text-white/90 sm:left-[calc(70%+19px)] sm:top-[602px] sm:text-[15px] md:left-[calc(72%+22px)] md:top-[718px] md:text-[17px] lg:left-[calc(76%+25px)] lg:top-[920px] lg:text-[19px] xl:left-[1135px] xl:top-[1560px] xl:text-[22px]">Pre-Escalation Clarity</span>
+
+      <div class="absolute z-50 left-[48%] top-[520px] h-[10px] w-[10px] rounded-full bg-[#F4D7FB] sm:left-[46%] sm:top-[625px] sm:h-[11px] sm:w-[11px] md:left-[46%] md:top-[745px] md:h-[13px] md:w-[13px] lg:left-[46%] lg:top-[920px] lg:h-[15px] lg:w-[15px] xl:left-[630px] xl:top-[1740px] xl:h-[18px] xl:w-[18px]"></div>
+      <span class="absolute z-50 left-[calc(48%-95px)] top-[538px] whitespace-nowrap text-[13px] font-medium leading-[113%] tracking-[0%] text-white/90 sm:left-[calc(46%-100px)] sm:top-[645px] sm:text-[15px] md:left-[calc(46%-105px)] md:top-[765px] md:text-[17px] lg:left-[calc(46%-125px)] lg:top-[940px] lg:text-[19px] xl:left-[455px] xl:top-[1770px] xl:text-[22px]">Career Protection</span>
+
+      <div class="absolute z-50 left-[27%] top-[475px] h-[10px] w-[10px] rounded-full bg-[#F4D7FB] sm:left-[25%] sm:top-[565px] sm:h-[11px] sm:w-[11px] md:left-[23%] md:top-[670px] md:h-[13px] md:w-[13px] lg:left-[17%] lg:top-[790px] lg:h-[15px] lg:w-[15px] xl:left-[200px] xl:top-[1595px] xl:h-[18px] xl:w-[18px]"></div>
+      <span class="absolute z-50 left-[7%] top-[495px] whitespace-nowrap text-[13px] font-medium leading-[113%] tracking-[0%] text-white/90 sm:left-[5%] sm:top-[585px] sm:text-[15px] md:left-[6%] md:top-[690px] md:text-[17px] lg:left-[5%] lg:top-[810px] lg:text-[19px] xl:left-[5px] xl:top-[1625px] xl:text-[22px]">Leadership Conflict</span>
+
+      <div class="absolute z-50 left-[18%] top-[410px] text-[20px] font-medium leading-[113%] tracking-[0%] text-white sm:left-[19%] sm:top-[480px] sm:text-[32px] md:left-[20%] md:top-[570px] md:text-[38px] lg:left-[19%] lg:top-[700px] lg:text-[48px] xl:left-[250px] xl:top-[1405px] xl:text-[62.21px]">
+        Survey<br />
+        Distrust
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- FINAL SECTION — DARK PURPLE + FULL WIDTH IMAGE -->
+  <!-- ========================================================= -->
+
+  <section class="afw-section relative w-full h-auto overflow-hidden text-white font-['Satoshi'] bg-[linear-gradient(180deg,#480755_0%,#480755_18%,#5A1263_28%,#713078_37%,#914B95_41%,#B878BB_45%,#DBA8DF_49%,#F9CAFF_53%,#F9CAFF_60%)]">
+
+    <div class="relative z-10 mx-auto flex min-h-[220px] w-full max-w-[1600px] flex-col items-center justify-center px-6 py-24 text-center sm:px-8 md:min-h-[200px] md:py-28 lg:px-12">
+
+      <h1 class="max-w-[1650px] text-white text-[69.21px] font-normal leading-[1.18] tracking-[-0.025em] [text-shadow:0_2px_14px_rgba(72,7,85,0.3)] max-[639px]:text-[30px] max-[639px]:leading-[1.2] sm:text-[38px] md:text-[50px] lg:text-[69.21px]">
+        Away From Work serves professionals across all
+        industries who understand the real risks of speaking
+        openly inside their organization.
+      </h1>
+
+    </div>
+
+    <div class="relative z-10 w-full overflow-hidden -mt-[10px] max-[639px]:mt-0">
+      <img src="src/assets/images/faces-bg.png" alt="Professionals" class="block w-full min-h-[620px] h-auto object-cover object-top max-[639px]:min-h-0 max-[639px]:h-[420px] sm:min-h-0 sm:h-[500px] md:h-[560px] lg:min-h-[620px] lg:h-auto" />
+    </div>
+
+  </section>
+<!-- ========================================================= -->
+<!-- CLEAR PATH SECTION -->
+<!-- ========================================================= -->
+
+<section
+  id="clear-path"
+  class="w-full overflow-hidden bg-[#F5DCFB] px-[6vw] py-20 sm:py-24 lg:py-28"
+>
+
+  <div
+    class="mx-auto grid max-w-[1600px] grid-cols-1 items-start gap-14 lg:grid-cols-2 lg:gap-20"
+  >
+
+    <!-- LEFT CONTENT -->
+    <div class="flex min-w-0 flex-col">
+
+      <h2
+        class="max-w-[690px] text-[34px] font-semibold leading-[1.16] tracking-[1.4px] text-[#0A0209] sm:text-[48px] lg:text-[54px]"
+      >
+        A Clear Path to Speaking<br class="hidden sm:block" />
+        Honestly, Without Fear
+      </h2>
+
+      <p
+        class="mt-6 max-w-[650px] text-[16px] leading-[1.85] text-black/55 sm:text-[18px]"
+      >
+        Away From Work is intentionally designed to be straightforward and
+        personal. There are no group sessions, employer involvement, or
+        complex processes — just a private space where individuals can speak
+        openly, away from workplace pressure.
+      </p>
+
+      <a
+        href="#"
+        class="mt-9 flex h-[70px] w-fit max-w-full items-center justify-center rounded-full bg-[#2C0330] px-9 text-center text-[18px] font-semibold text-white transition-transform duration-200 hover:scale-[1.02] sm:text-[17px]"
+      >
+        Request a Private Session
+      </a>
+
+      <div class="mt-10 flex flex-wrap items-center gap-4">
+
+        <div class="flex shrink-0 items-center -space-x-4">
+          <img
+            src="src/assets/images/person-icon1.png"
+            alt=""
+            class="h-[59px] w-[59px] shrink-0 rounded-full border-[2.5px] border-[#FBEAFF] bg-[#7A4F86] object-cover"
+          />
+
+          <img
+            src="src/assets/images/person-icon2.png"
+            alt=""
+            class="h-[59px] w-[59px] shrink-0 rounded-full border-[2.5px] border-[#FBEAFF] bg-[#5A2C66] object-cover"
+          />
+
+          <img
+            src="src/assets/images/person-icon1.png"
+            alt=""
+            class="h-[59px] w-[59px] shrink-0 rounded-full border-[2.5px] border-[#FBEAFF] bg-[#420A4B] object-cover"
+          />
+        </div>
+
+        <p class="text-[15px] leading-tight">
+          <span class="font-bold text-[#480755]">17k+</span>
+          <span class="text-black/45"> Satisfied Clients</span>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- RIGHT — RESPONSIVE SCROLLING CARDS -->
+    <div class="relative min-w-0 w-full">
+
+      <div
+        id="path-cards-scroll"
+        tabindex="0"
+        class="
+          path-cards-scroll
+          flex
+          max-h-[520px]
+          flex-col
+          gap-8
+          overflow-x-hidden
+          overflow-y-auto
+          pr-1
+          sm:max-h-[600px]
+          sm:pr-3
+          lg:max-h-[calc(100vh-220px)]
+          lg:min-h-[520px]
+          lg:max-h-[680px]
+          [scrollbar-width:none]
+          [-ms-overflow-style:none]
+          [&::-webkit-scrollbar]:hidden
+          [&::-webkit-scrollbar]:w-0
+          [&::-webkit-scrollbar]:h-0
+        "
+      >
+
+        <!-- CARD 01 -->
+        <div
+          class="path-card group shrink-0 rounded-[26px] border border-transparent bg-[#E9CCF2] p-7 transition-[border-color,box-shadow] duration-300 ease-out hover:border-[#480755] sm:p-10"
+        >
+
+          <div
+            class="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#E9CCF2]"
+          >
+            <img
+              src="src/assets/images/scroll-icon1.png"
+              alt=""
+              class="h-[52px] w-[52px] object-contain"
+            />
+          </div>
+
+          <h3
+            class="mt-7 text-[24px] font-semibold text-[#160217] sm:text-[27px]"
+          >
+            Create a Private Entry
+          </h3>
+
+          <p
+            class="mt-4 max-w-[520px] text-[16px] leading-[1.8] text-black/55 sm:text-[17px]"
+          >
+            There is no employer access, no shared accounts, and no workplace
+            oversight of any kind. You decide when and how the conversation
+            begins.
+          </p>
+
+        </div>
+
+
+        <!-- CARD 02 -->
+        <div
+          class="path-card group shrink-0 rounded-[26px] border border-transparent bg-[#E5C4EF] p-7 transition-[border-color,box-shadow] duration-300 ease-out hover:border-[#480755] sm:p-10"
+        >
+
+          <div
+            class="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#E9CCF2]"
+          >
+            <img
+              src="src/assets/images/scroll-icon2.png"
+              alt=""
+              class="h-[52px] w-[52px] object-contain"
+            />
+          </div>
+
+          <h3
+            class="mt-7 text-[24px] font-semibold text-[#160217] sm:text-[27px]"
+          >
+            Step Away From Work
+          </h3>
+
+          <p
+            class="mt-4 max-w-[520px] text-[16px] leading-[1.8] text-black/55 sm:text-[17px]"
+          >
+            There is no employer access, no shared accounts, and no workplace
+            oversight of any kind. You decide when and how the conversation
+            begins.
+          </p>
+
+        </div>
+
+
+        <!-- CARD 03 -->
+        <div
+          class="path-card group shrink-0 rounded-[26px] border border-transparent bg-[#E9CCF2] p-7 transition-[border-color,box-shadow] duration-300 ease-out hover:border-[#480755] sm:p-10"
+        >
+
+          <div
+            class="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#3A0A44]"
+          >
+            <img
+              src="src/assets/images/scroll-icon3.png"
+              alt=""
+              class="h-[24px] w-[24px] object-contain"
+            />
+          </div>
+
+          <h3
+            class="mt-7 text-[24px] font-semibold text-[#160217] sm:text-[27px]"
+          >
+            Speak Freely
+          </h3>
+
+          <p
+            class="mt-4 max-w-[520px] text-[16px] leading-[1.8] text-black/55 sm:text-[17px]"
+          >
+            Each conversation is intentionally individual, helping reduce
+            self-filtering and allowing thoughts to surface naturally and
+            honestly.
+          </p>
+
+        </div>
+
+
+        <!-- CARD 04 -->
+        <div
+          class="path-card group shrink-0 rounded-[26px] border border-transparent bg-[#E9CCF2] p-7 transition-[border-color,box-shadow] duration-300 ease-out hover:border-[#480755] sm:p-10"
+        >
+
+          <div
+            class="flex h-[52px] w-[52px] items-center justify-center rounded-full bg-[#E9CCF2]"
+          >
+            <img
+              src="src/assets/images/scroll-icon4.png"
+              alt=""
+              class="h-[52px] w-[52px] object-contain"
+            />
+          </div>
+
+          <h3
+            class="mt-7 text-[24px] font-semibold text-[#160217] sm:text-[27px]"
+          >
+            Leave With Clarity
+          </h3>
+
+          <p
+            class="mt-4 max-w-[520px] text-[16px] leading-[1.8] text-black/55 sm:text-[17px]"
+          >
+            Each conversation is intentionally individual, helping reduce
+            self-filtering and allowing thoughts to surface naturally and
+            honestly.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+  <!-- ========================================================= -->
+  <!-- ABOUT / BIO SECTION -->
+  <!-- ========================================================= -->
+
+  <section id="about-founder" class="w-full bg-[#F5DCFB] px-[6vw] py-12 sm:py-16 md:py-20 lg:py-20">
+
+    <div class="relative mx-auto flex max-w-[1600px] flex-col overflow-hidden rounded-[22px] p-5 sm:rounded-[24px] sm:p-7 md:p-8 lg:flex-row lg:items-center lg:gap-[70px] lg:rounded-[28px] lg:p-14">
+
+      <div class="pointer-events-none absolute inset-0 z-0">
+        <img src="src/assets/images/hero-2.png" alt="" class="h-full w-full object-cover object-center opacity-100" />
+      </div>
+
+      <div class="relative z-10 mb-8 w-full max-w-[430px] shrink-0 self-center sm:mb-9 md:mb-10 lg:mb-0 lg:w-[430px] lg:self-auto">
+
+        <div class="overflow-hidden rounded-[18px] bg-transparent p-2 sm:rounded-[20px] sm:p-2.5 lg:rounded-[22px] lg:p-3">
+          <img src="src/assets/images/profile-person.png" alt="Edith D. Dorsey, PhD" class="h-[420px] w-full rounded-[14px] object-cover sm:h-[500px] sm:rounded-[15px] md:h-[560px] md:rounded-[16px] lg:h-[660px]" />
+        </div>
+
+        <div class="mx-auto -mt-3 h-[20px] w-[78%] rounded-full bg-black/35 blur-xl sm:h-[23px] sm:w-[80%] lg:h-[26px] lg:w-[82%]"></div>
+
+      </div>
+
+      <div class="relative z-10 flex min-w-0 flex-1 flex-col">
+
+        <h2 class="break-words text-[34px] font-bold leading-[1.15] tracking-[-0.8px] text-white sm:text-[38px] md:text-[42px] lg:text-[50px] lg:tracking-[-1px]">
+          Edith D. Dorsey, PhD
+        </h2>
+
+        <p class="mt-5 max-w-[850px] text-[16px] leading-[1.7] tracking-[-0.1px] text-white/80 sm:mt-6 sm:text-[17px] sm:leading-[1.75] md:text-[18px] lg:text-[19px] lg:leading-[1.8]">
+          Dr. Dorsey is a lifelong learner. She earned her bachelor's degree
+          from the University of Pittsburgh, a Master of Business
+          Administration from the University of Phoenix, and a Doctor of
+          Philosophy in business administration from North Central University.
+          Because of being identified as a top talent by her employers, she
+          was given the opportunity to complete advanced leadership studies at
+          Harvard University and the Wharton School at the University of
+          Pennsylvania.
+        </p>
+
+        <p class="mt-4 max-w-[850px] text-[16px] leading-[1.7] tracking-[-0.1px] text-white/80 sm:mt-5 sm:text-[17px] sm:leading-[1.75] md:text-[18px] lg:text-[19px] lg:leading-[1.8]">
+          In addition to being a transformational health care executive and
+          lifelong learner, Dr. Dorsey is a gifted author with a vision toward
+          helping others to learn how to problem solve as part of her legacy.
+          She transferred her decades-long business experience to her book
+          titled &ldquo;Dance Your Way to Happiness: Accomplish More in the
+          Workplace with an Easy Problem-Solving Methodology,&rdquo; which
+          aims to &ldquo;restore job happiness through problem resolution.&rdquo;
+        </p>
+
+        <a href="#" class="mt-7 flex min-h-[60px] w-fit max-w-full items-center justify-center rounded-full bg-[#F9CAFF] px-6 py-4 text-center text-[16px] font-semibold leading-none text-[#420A4B] transition-colors duration-200 hover:bg-white sm:mt-8 sm:min-h-[65px] sm:px-7 sm:text-[17px] lg:mt-9 lg:h-[75px] lg:min-h-0 lg:px-[30px] lg:text-[19px]">
+          Start a Private Conversation
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- WHY / CONFIDENTIALITY FEATURE SECTION -->
+  <!-- ========================================================= -->
+
+  <section id="why-safety" class="w-full bg-[#F5DCFB] px-[6vw] py-20 sm:py-24">
+
+    <div class="mx-auto max-w-[1600px]">
+
+      <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+
+        <h2 class="max-w-[760px] text-[38px] font-bold leading-[1.2] tracking-[-1px] text-[#0A0209] sm:text-[46px] lg:text-[52px]">
+          Why Away From Work Is Built for Confidentiality &amp;
+          Psychological Safety
+        </h2>
+
+        <p class="max-w-[680px] text-[16px] leading-[1.85] text-black/50 sm:text-[20px]">
+          When conversations happen away from workplace oversight, people
+          speak more honestly. Away From Work separates your experience
+          from employer systems and consequences&mdash;so you can think
+          clearly, speak freely, and protect your privacy.
+        </p>
+
+      </div>
+
+      <div class="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:gap-7">
+
+        <div id="confidential-by-design" class="relative min-h-[240px] overflow-hidden rounded-[13px] bg-[#F5DCFB] p-8 sm:min-h-[350px] lg:min-h-[340px]">
+
+          <div class="pointer-events-none absolute inset-0 z-0 rounded-[13px] border-[2px] border-[#420A4B]/40 [mask-image:linear-gradient(to_top,black_0%,black_12%,rgba(0,0,0,.35)_48%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_top,black_0%,black_12%,rgba(0,0,0,.35)_48%,transparent_100%)]"></div>
+
+          <div class="relative z-10">
+            <img src="src/assets/images/card-icon1.png" alt="" class="h-[82px] w-[82px] object-contain" />
+            <h3 class="mt-8 text-[24px] font-normal leading-[1.2] tracking-[-0.02em] text-[#0A0209] sm:text-[34px]">Confidential by Design</h3>
+            <p class="mt-5 max-w-[96%] text-[15px] font-normal leading-[1.8] text-black/50 sm:text-[19px]">
+              Your information stays outside workplace channels. No
+              employer access, no internal reporting structures, and no
+              hidden visibility into what you share.
+            </p>
+          </div>
+
+        </div>
+
+        <div id="no-employer-oversight" class="relative min-h-[340px] overflow-hidden rounded-[13px] bg-[#F5DCFB] p-8 sm:min-h-[350px] lg:min-h-[340px]">
+
+          <div class="pointer-events-none absolute inset-0 z-0 rounded-[13px] border-[2px] border-[#420A4B]/40 [mask-image:linear-gradient(to_top,black_0%,black_12%,rgba(0,0,0,.35)_48%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_top,black_0%,black_12%,rgba(0,0,0,.35)_48%,transparent_100%)]"></div>
+
+          <div class="relative z-10">
+            <img src="src/assets/images/card-icon2.png" alt="" class="h-[82px] w-[82px] object-contain" />
+            <h3 class="mt-8 text-[24px] font-normal leading-[1.2] tracking-[-0.02em] text-[#0A0209] sm:text-[34px]">No Employer Oversight</h3>
+            <p class="mt-5 max-w-[96%] text-[15px] font-normal leading-[1.8] text-black/50 sm:text-[19px]">
+              Because the conversation happens outside your organization,
+              fear, pressure, and self-censorship drop-making room for real
+              reflection and truthful dialogue.
+            </p>
+          </div>
+
+        </div>
+
+        <div id="clarity-through-safety" class="relative min-h-[340px] overflow-hidden rounded-[13px] bg-[#F5DCFB] p-8 sm:min-h-[350px] lg:min-h-[340px]">
+
+          <div class="pointer-events-none absolute inset-0 z-0 rounded-[13px] border-[2px] border-[#420A4B]/40 [mask-image:linear-gradient(to_top,black_0%,black_12%,rgba(0,0,0,.35)_48%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_top,black_0%,black_12%,rgba(0,0,0,.35)_48%,transparent_100%)]"></div>
+
+          <div class="relative z-10">
+            <img src="src/assets/images/card-icon3.png" alt="" class="h-[70px] w-[70px] object-contain" />
+            <h3 class="mt-8 text-[24px] font-normal leading-[1.2] tracking-[-0.02em] text-[#0A0209] sm:text-[34px]">Clarity Through Safety</h3>
+            <p class="mt-5 max-w-[96%] text-[19px] font-normal leading-[1.8] text-black/50 sm:text-[19px]">
+              Psychological safety isn&rsquo;t a slogan-it&rsquo;s an
+              environment. When you feel protected, you can explore
+              difficult thoughts and leave with clearer insight and
+              options.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+<!-- ========================================================= -->
+<!-- TESTIMONIALS SECTION -->
+<!-- ========================================================= -->
+
+<section
+  id="testimonials"
+  class="relative w-full h-[1200px] overflow-hidden bg-[#F5DCFB] px-[17px] py-0"
+>
+
+  <!-- TOP FADE -->
+  <div
+    class="pointer-events-none absolute left-0 top-0 z-20 h-[200px] w-full bg-gradient-to-b from-[#F5DCFB] to-transparent"
+  ></div>
+
+  <!-- BOTTOM FADE -->
+  <div
+    class="pointer-events-none absolute bottom-0 left-0 z-20 h-[200px] w-full bg-gradient-to-t from-[#F5DCFB] to-transparent"
+  ></div>
+
+
+  <!-- ======================================================= -->
+  <!-- TESTIMONIAL GRID -->
+  <!-- ======================================================= -->
+
+  <div
+    class="mx-auto grid w-full max-w-[1680px] grid-cols-1 gap-x-[14px] gap-y-[24px] sm:grid-cols-2 lg:grid-cols-4"
+  >
+
+
+    <!-- ===================================================== -->
+    <!-- COLUMN 1 — MOVES UP -->
+    <!-- ===================================================== -->
+
+    <div
+      class="testimonial-column testimonial-column-up flex min-w-0 flex-col gap-[24px]"
+    >
+
+      <!-- CARD 1 -->
+      <article
+        class="flex min-h-[344px] w-full max-w-[400px] flex-col rounded-[22px] bg-[#E9C2EF] p-[15px] sm:mx-auto lg:mx-0"
+      >
+
+        <p
+          class="max-w-[400px] text-[16px] font-normal leading-[1.72] text-black/55 sm:text-[17px] lg:text-[19px]"
+        >
+          Away From Work gave me the first space where I could speak honestly
+          without worrying how it would affect my role. I was able to step
+          back, say what I was actually thinking, and gain clarity without
+          feeling watched or evaluated.
+        </p>
+
+        <div class="mt-auto flex items-end justify-between gap-[12px]">
+
+          <div class="min-w-0">
+
+            <h3
+              class="text-[15px] font-medium leading-[1.15] text-black sm:text-[16px] lg:text-[17px]"
+            >
+              Michael Anderson
+            </h3>
+
+            <p
+              class="mt-[5px] text-[12px] font-normal leading-none text-[#420A4B] sm:text-[13px]"
+            >
+              Client
+            </p>
+
+          </div>
+
+          <div
+            class="mb-[1px] shrink-0 flex items-center gap-[2px] text-[16px] leading-none text-[#420A4B] sm:text-[17px] lg:text-[18px]"
+            aria-label="5 out of 5 stars"
+          >
+            ★★★★★
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- CARD 2 -->
+      <article
+        class="flex min-h-[454px] w-full max-w-[400px] flex-col rounded-[22px] bg-[#E9C2EF] p-[15px] sm:mx-auto lg:mx-0"
+      >
+
+        <div
+          class="flex h-[90px] w-[90px] shrink-0 items-center justify-center overflow-hidden rounded-[12px] bg-[#D49ADB]"
+        >
+
+          <img
+            src="src/assets/images/female-icon.png"
+            alt="Sarah Mitchell"
+            class="h-full w-full object-cover"
+          />
+
+        </div>
+
+        <p
+          class="mt-[31px] max-w-[400px] text-[16px] font-normal leading-[1.72] text-black/55 sm:text-[17px] lg:text-[19px]"
+        >
+          Away From Work gave me the first space where I could speak honestly
+          without worrying how it would affect my role. I was able to step
+          back, say what I was actually thinking, and gain clarity without
+          feeling watched or evaluated.
+        </p>
+
+        <div class="mt-auto flex items-end justify-between gap-[12px]">
+
+          <div class="min-w-0">
+
+            <h3
+              class="text-[15px] font-medium leading-[1.15] text-black sm:text-[16px] lg:text-[17px]"
+            >
+              Sarah Mitchell
+            </h3>
+
+            <p
+              class="mt-[5px] text-[12px] leading-none text-[#420A4B] sm:text-[13px]"
+            >
+              Client
+            </p>
+
+          </div>
+
+          <div
+            class="mb-[1px] shrink-0 text-[16px] leading-none tracking-[1px] text-[#420A4B] sm:text-[17px] lg:text-[18px]"
+            aria-label="5 out of 5 stars"
+          >
+            ★★★★★
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- CARD 3 -->
+      <article
+        class="flex min-h-[474px] w-full max-w-[400px] flex-col rounded-[22px] bg-[#E9C2EF] p-[15px] sm:mx-auto lg:mx-0"
+      >
+
+        <div
+          class="flex h-[90px] w-[90px] shrink-0 items-center justify-center overflow-hidden rounded-[12px] bg-[#D49ADB]"
+        >
+
+          <img
+            src="src/assets/images/male-icon.png"
+            alt="Michael Anderson"
+            class="h-full w-full object-cover"
+          />
+
+        </div>
+
+        <p
+          class="mt-[31px] max-w-[400px] text-[16px] font-normal leading-[1.72] text-black/55 sm:text-[17px] lg:text-[19px]"
+        >
+          Away From Work gave me the first space where I could speak honestly
+          without worrying how it would affect my role. I was able to step
+          back, say what I was actually thinking, and gain clarity without
+          feeling watched or evaluated.
+        </p>
+
+        <div class="mt-auto flex items-end justify-between gap-[12px]">
+
+          <div class="min-w-0">
+
+            <h3
+              class="text-[15px] font-medium leading-[1.15] text-black sm:text-[16px] lg:text-[17px]"
+            >
+              Michael Anderson
+            </h3>
+
+            <p
+              class="mt-[5px] text-[12px] leading-none text-[#420A4B] sm:text-[13px]"
+            >
+              Client
+            </p>
+
+          </div>
+
+          <div
+            class="mb-[1px] shrink-0 text-[16px] leading-none tracking-[1px] text-[#420A4B] sm:text-[17px] lg:text-[18px]"
+          >
+            ★★★★★
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- COLUMN 2 — MOVES DOWN -->
+    <!-- ===================================================== -->
+
+    <div
+      class="testimonial-column testimonial-column-down flex min-w-0 flex-col gap-[24px]"
+    >
+
+      <!-- CARD 1 -->
+      <article
+        class="flex min-h-[253px] w-full max-w-[400px] flex-col rounded-[22px] bg-[#E9C2EF] p-[15px] sm:mx-auto lg:mx-0"
+      >
+
+        <p
+          class="max-w-[400px] text-[16px] font-normal leading-[1.72] text-black/55 sm:text-[17px] lg:text-[19px]"
+        >
+          I didn't realize how much I was filtering my words until I left.
+          Distance gave me clarity, real perspective, and less anxiety.
+          I didn't realize until I left.
+          Distance gave me clarity, real perspective, and less anxiety.
+        </p>
+
+        <div class="mt-auto flex items-end justify-between gap-[12px]">
+
+          <div class="min-w-0">
+
+            <h3
+              class="text-[15px] font-medium leading-[1.15] text-black sm:text-[16px] lg:text-[17px]"
+            >
+              Sarah Mitchell
+            </h3>
+
+            <p
+              class="mt-[5px] text-[12px] leading-none text-[#420A4B] sm:text-[13px]"
+            >
+              Client
+            </p>
+
+          </div>
+
+          <div
+            class="mb-[1px] shrink-0 text-[16px] leading-none tracking-[1px] text-[#420A4B] sm:text-[17px] lg:text-[18px]"
+          >
+            ★★★★★
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- CARD 2 -->
+      <article
+        class="flex min-h-[455px] w-full max-w-[400px] flex-col rounded-[22px] bg-[#E9C2EF] p-[15px] sm:mx-auto lg:mx-0"
+      >
+
+        <div
+          class="flex h-[90px] w-[90px] shrink-0 items-center justify-center overflow-hidden rounded-[12px] bg-[#D49ADB]"
+        >
+
+          <img
+            src="src/assets/images/male-icon.png"
+            alt="Michael Anderson"
+            class="h-full w-full object-cover"
+          />
+
+        </div>
+
+        <p
+          class="mt-[31px] max-w-[400px] text-[16px] font-normal leading-[1.72] text-black/55 sm:text-[17px] lg:text-[18px]"
+        >
+          Away From Work gave me the first space where I could speak honestly
+          without worrying how it would affect my role. I was able to step
+          back, say what I was actually thinking, and gain clarity without
+          feeling watched or evaluated. Say what I was actually thinking,
+          and gain clarity without feeling watched or evaluated.
+        </p>
+
+        <div class="mt-auto flex items-end justify-between gap-[12px]">
+
+          <div class="min-w-0">
+
+            <h3
+              class="text-[15px] font-medium leading-[1.15] text-black sm:text-[16px] lg:text-[17px]"
+            >
+              Michael Anderson
+            </h3>
+
+            <p
+              class="mt-[5px] text-[12px] leading-none text-[#420A4B] sm:text-[13px]"
+            >
+              Client
+            </p>
+
+          </div>
+
+          <div
+            class="mb-[1px] shrink-0 text-[16px] leading-none tracking-[1px] text-[#420A4B] sm:text-[17px] lg:text-[18px]"
+          >
+            ★★★★★
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- CARD 3 -->
+      <article
+        class="flex min-h-[455px] w-full max-w-[400px] flex-col rounded-[22px] bg-[#E9C2EF] p-[15px] sm:mx-auto lg:mx-0"
+      >
+
+        <div
+          class="flex h-[90px] w-[90px] shrink-0 items-center justify-center overflow-hidden rounded-[12px] bg-[#D49ADB]"
+        >
+
+          <img
+            src="src/assets/images/female-icon.png"
+            alt="Sarah Mitchell"
+            class="h-full w-full object-cover"
+          />
+
+        </div>
+
+        <p
+          class="mt-[31px] max-w-[400px] text-[16px] leading-[1.72] text-black/55 sm:text-[17px] lg:text-[18px]"
+        >
+          Away From Work gave me the first space where I could speak honestly
+          without worrying how it would affect my role. I was able to step
+          back, say what I was actually thinking, and gain clarity without
+          feeling watched or evaluated. Thinking, and gain clarity without
+          feeling watched or evaluated.
+        </p>
+
+        <div class="mt-auto flex items-end justify-between gap-[12px]">
+
+          <div class="min-w-0">
+
+            <h3
+              class="text-[15px] font-medium leading-[1.15] text-black sm:text-[16px] lg:text-[17px]"
+            >
+              Sarah Mitchell
+            </h3>
+
+            <p
+              class="mt-[5px] text-[12px] leading-none text-[#420A4B] sm:text-[13px]"
+            >
+              Client
+            </p>
+
+          </div>
+
+          <div
+            class="mb-[1px] shrink-0 text-[16px] leading-none tracking-[1px] text-[#420A4B] sm:text-[17px] lg:text-[18px]"
+          >
+            ★★★★★
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- COLUMN 3 — MOVES UP -->
+    <!-- ===================================================== -->
+
+    <div
+      class="testimonial-column testimonial-column-up flex min-w-0 flex-col gap-[24px]"
+    >
+
+      <!-- CARD 1 -->
+      <article
+        class="flex min-h-[354px] w-full max-w-[400px] flex-col rounded-[22px] bg-[#E9C2EF] p-[15px] sm:mx-auto lg:mx-0"
+      >
+
+        <p
+          class="max-w-[400px] text-[16px] leading-[1.72] text-black/55 sm:text-[17px] lg:text-[18px]"
+        >
+          Away From Work gave me the first space where I could speak honestly
+          without worrying how it would affect my role. I was able to step
+          back, say what I was actually thinking, and gain clarity without
+          feeling watched or evaluated. Thinking, and gain clarity without
+          feeling watched or evaluated.
+        </p>
+
+        <div class="mt-auto flex items-end justify-between gap-[12px]">
+
+          <div class="min-w-0">
+
+            <h3
+              class="text-[15px] font-medium leading-[1.15] text-black sm:text-[16px] lg:text-[17px]"
+            >
+              Michael Anderson
+            </h3>
+
+            <p
+              class="mt-[5px] text-[12px] leading-none text-[#420A4B] sm:text-[13px]"
+            >
+              Client
+            </p>
+
+          </div>
+
+          <div
+            class="mb-[1px] shrink-0 text-[16px] leading-none tracking-[1px] text-[#420A4B] sm:text-[17px] lg:text-[18px]"
+          >
+            ★★★★★
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- CARD 2 -->
+      <article
+        class="flex min-h-[455px] w-full max-w-[400px] flex-col rounded-[22px] bg-[#E9C2EF] p-[15px] sm:mx-auto lg:mx-0"
+      >
+
+        <div
+          class="flex h-[90px] w-[90px] shrink-0 items-center justify-center overflow-hidden rounded-[12px] bg-[#D49ADB]"
+        >
+
+          <img
+            src="src/assets/images/female-icon.png"
+            alt="Sarah Mitchell"
+            class="h-full w-full object-cover"
+          />
+
+        </div>
+
+        <p
+          class="mt-[31px] max-w-[400px] text-[16px] leading-[1.72] text-black/55 sm:text-[17px] lg:text-[19px]"
+        >
+          Away From Work gave me the first space where I could speak honestly
+          without worrying how it would affect my role. I was able to step
+          back, say what I was actually thinking, and gain clarity without
+          feeling watched or evaluated.
+        </p>
+
+        <div class="mt-auto flex items-end justify-between gap-[12px]">
+
+          <div class="min-w-0">
+
+            <h3
+              class="text-[15px] font-medium leading-[1.15] text-black sm:text-[16px] lg:text-[17px]"
+            >
+              Sarah Mitchell
+            </h3>
+
+            <p
+              class="mt-[5px] text-[12px] leading-none text-[#420A4B] sm:text-[13px]"
+            >
+              Client
+            </p>
+
+          </div>
+
+          <div
+            class="mb-[1px] shrink-0 text-[16px] leading-none tracking-[1px] text-[#420A4B] sm:text-[17px] lg:text-[18px]"
+          >
+            ★★★★★
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- CARD 3 -->
+      <article
+        class="flex min-h-[455px] w-full max-w-[400px] flex-col rounded-[22px] bg-[#E9C2EF] p-[15px] sm:mx-auto lg:mx-0"
+      >
+
+        <div
+          class="flex h-[90px] w-[90px] shrink-0 items-center justify-center overflow-hidden rounded-[12px] bg-[#D49ADB]"
+        >
+
+          <img
+            src="src/assets/images/male-icon.png"
+            alt="Michael Anderson"
+            class="h-full w-full object-cover"
+          />
+
+        </div>
+
+        <p
+          class="mt-[31px] max-w-[400px] text-[16px] leading-[1.72] text-black/55 sm:text-[17px] lg:text-[18px]"
+        >
+          Away From Work gave me the first space where I could speak honestly
+          without worrying how it would affect my role. I was able to step
+          back, say what I was actually thinking, and gain clarity without
+          feeling watched or evaluated.
+        </p>
+
+        <div class="mt-auto flex items-end justify-between gap-[12px]">
+
+          <div class="min-w-0">
+
+            <h3
+              class="text-[15px] font-medium leading-[1.15] text-black sm:text-[16px] lg:text-[17px]"
+            >
+              Michael Anderson
+            </h3>
+
+            <p
+              class="mt-[5px] text-[12px] leading-none text-[#420A4B] sm:text-[13px]"
+            >
+              Client
+            </p>
+
+          </div>
+
+          <div
+            class="mb-[1px] shrink-0 text-[16px] leading-none tracking-[1px] text-[#420A4B] sm:text-[17px] lg:text-[18px]"
+          >
+            ★★★★★
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <!-- ===================================================== -->
+    <!-- COLUMN 4 — MOVES DOWN -->
+    <!-- ===================================================== -->
+
+    <div
+      class="testimonial-column testimonial-column-down flex min-w-0 flex-col gap-[24px]"
+    >
+
+      <!-- CARD 1 -->
+      <article
+        class="flex min-h-[293px] w-full max-w-[400px] flex-col rounded-[22px] bg-[#E9C2EF] p-[15px] sm:mx-auto lg:mx-0"
+      >
+
+        <p
+          class="max-w-[400px] text-[16px] leading-[1.72] text-black/55 sm:text-[17px] lg:text-[18px]"
+        >
+          I didn't realize how much I was filtering my words until I left.
+          Distance gave me clarity, real perspective, and less anxiety.
+          I didn't realize how much I was filtering my words until I left.
+          Distance gave me clarity, real perspective, and less anxiety.
+        </p>
+
+        <div class="mt-auto flex items-end justify-between gap-[12px]">
+
+          <div class="min-w-0">
+
+            <h3
+              class="text-[15px] font-medium leading-[1.15] text-black sm:text-[16px] lg:text-[17px]"
+            >
+              Sarah Mitchell
+            </h3>
+
+            <p
+              class="mt-[5px] text-[12px] leading-none text-[#420A4B] sm:text-[13px]"
+            >
+              Client
+            </p>
+
+          </div>
+
+          <div
+            class="mb-[1px] shrink-0 text-[16px] leading-none tracking-[1px] text-[#420A4B] sm:text-[17px] lg:text-[18px]"
+          >
+            ★★★★★
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- CARD 2 -->
+      <article
+        class="flex min-h-[455px] w-full max-w-[400px] flex-col rounded-[22px] bg-[#E9C2EF] p-[15px] sm:mx-auto lg:mx-0"
+      >
+
+        <div
+          class="flex h-[90px] w-[90px] shrink-0 items-center justify-center overflow-hidden rounded-[12px] bg-[#D49ADB]"
+        >
+
+          <img
+            src="src/assets/images/male-icon.png"
+            alt="Michael Anderson"
+            class="h-full w-full object-cover"
+          />
+
+        </div>
+
+        <p
+          class="mt-[31px] max-w-[400px] text-[16px] leading-[1.72] text-black/55 sm:text-[17px] lg:text-[18px]"
+        >
+          Away From Work gave me the first space where I could speak honestly
+          without worrying how it would affect my role. I was able to step
+          back, say what I was actually thinking, and gain clarity without
+          feeling watched or evaluated. Thinking, and gain clarity without
+          feeling watched or evaluated.
+        </p>
+
+        <div class="mt-auto flex items-end justify-between gap-[12px]">
+
+          <div class="min-w-0">
+
+            <h3
+              class="text-[15px] font-medium leading-[1.15] text-black sm:text-[16px] lg:text-[17px]"
+            >
+              Michael Anderson
+            </h3>
+
+            <p
+              class="mt-[5px] text-[12px] leading-none text-[#420A4B] sm:text-[13px]"
+            >
+              Client
+            </p>
+
+          </div>
+
+          <div
+            class="mb-[1px] shrink-0 text-[16px] leading-none tracking-[1px] text-[#420A4B] sm:text-[17px] lg:text-[18px]"
+          >
+            ★★★★★
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- CARD 3 -->
+      <article
+        class="flex min-h-[455px] w-full max-w-[400px] flex-col rounded-[22px] bg-[#E9C2EF] p-[15px] sm:mx-auto lg:mx-0"
+      >
+
+        <div
+          class="flex h-[90px] w-[90px] shrink-0 items-center justify-center overflow-hidden rounded-[12px] bg-[#D49ADB]"
+        >
+
+          <img
+            src="src/assets/images/female-icon.png"
+            alt="Sarah Mitchell"
+            class="h-full w-full object-cover"
+          />
+
+        </div>
+
+        <p
+          class="mt-[31px] max-w-[400px] text-[16px] leading-[1.72] text-black/55 sm:text-[17px] lg:text-[18px]"
+        >
+          Away From Work gave me the first space where I could speak honestly
+          without worrying how it would affect my role. I was able to step
+          back, say what I was actually thinking, and gain clarity without
+          feeling watched or evaluated. Thinking, and gain clarity without
+          feeling watched or evaluated.
+        </p>
+
+        <div class="mt-auto flex items-end justify-between gap-[12px]">
+
+          <div class="min-w-0">
+
+            <h3
+              class="text-[15px] font-medium leading-[1.15] text-black sm:text-[16px] lg:text-[17px]"
+            >
+              Sarah Mitchell
+            </h3>
+
+            <p
+              class="mt-[5px] text-[12px] leading-none text-[#420A4B] sm:text-[13px]"
+            >
+              Client
+            </p>
+
+          </div>
+
+          <div
+            class="mb-[1px] shrink-0 text-[16px] leading-none tracking-[1px] text-[#420A4B] sm:text-[17px] lg:text-[18px]"
+          >
+            ★★★★★
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ========================================================= -->
+<!-- TESTIMONIAL COLUMN CSS -->
+<!-- ========================================================= -->
+
+<style>
+
+  /* ========================================================= */
+  /* TESTIMONIAL COLUMN ANIMATION SUPPORT */
+  /* ========================================================= */
+
+  #testimonials {
+    position: relative;
+  }
+
+  .testimonial-column {
+    position: relative;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+  }
+
+
+  /* ========================================================= */
+  /* DESKTOP — 4 COLUMN ANIMATION */
+  /* ========================================================= */
+
+  @media (min-width: 1024px) {
+
+    #testimonials {
+      height: 1200px;
+    }
+
+    .testimonial-column {
+      overflow: visible;
+    }
+
+  }
+
+
+  /* ========================================================= */
+  /* TABLET / MOBILE */
+  /* Keep your original grid behavior and disable movement */
+  /* ========================================================= */
+
+  @media (max-width: 1023px) {
+
+    .testimonial-column {
+      transform: none !important;
+      will-change: auto;
+    }
+
+  }
+
+
+  /* ========================================================= */
+  /* MOBILE HEIGHT */
+  /* ========================================================= */
+
+  @media (max-width: 639px) {
+
+    #testimonials {
+      height: auto;
+      min-height: 1100px;
+      padding-bottom: 80px;
+    }
+
+  }
+
+
+  /* ========================================================= */
+  /* REDUCED MOTION */
+  /* ========================================================= */
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .testimonial-column {
+      transform: none !important;
+      will-change: auto;
+    }
+
+  }
+
+</style>
+  <!-- ========================================================= -->
+  <!-- READY TO SPEAK / CTA SECTION -->
+  <!-- ========================================================= -->
+
+  <section class="w-full bg-[#F5DCFB] px-[17px] py-[33px] pt-[80px] sm:px-[30px] sm:pt-[100px] lg:px-[60px] lg:pt-[120px] xl:px-[110px] xl:pt-[150px]">
+
+    <div class="relative flex min-h-[400px] w-full max-w-[1680px] items-center justify-center overflow-hidden rounded-[24px] bg-cover bg-center bg-no-repeat sm:min-h-[440px] sm:rounded-[28px] lg:min-h-[480px] lg:rounded-[32px] xl:mx-auto" style="background-image: url('src/assets/images/hero3.png');">
+
+      <div class="pointer-events-none absolute inset-0 bg-[#420A4B]/70"></div>
+
+      <div class="relative z-10 flex w-full max-w-[850px] flex-col items-center px-[20px] text-center sm:px-[30px] lg:px-[40px]">
+
+        <h2 class="max-w-[760px] text-[38px] font-semibold leading-[1.15] tracking-[-1.2px] text-white sm:text-[48px] sm:tracking-[-1.5px] md:text-[56px] lg:text-[72px] lg:tracking-[-1.8px]">
+          When You're Ready to
+          <br />
+          Speak Freely
+        </h2>
+
+        <p class="mt-[20px] max-w-[790px] text-[14px] font-normal leading-[1.7] tracking-[-0.1px] text-white/85 sm:mt-[23px] sm:text-[16px] sm:leading-[1.8] lg:text-[18px] lg:leading-[1.9] lg:tracking-[-0.15px]">
+          If internal surveys or workplace feedback don't feel safe, Away From
+          Work offers a confidential, independent space where you can speak
+          honestly—without workplace oversight.
+        </p>
+
+        <a href="#" class="mt-[22px] flex h-[62px] w-full max-w-[340px] items-center justify-center rounded-full bg-[#F9CAFF] px-[24px] text-[16px] font-semibold leading-none text-[#420A4B] transition-all duration-200 hover:scale-[1.02] hover:bg-[#F7BCFF] sm:mt-[25px] sm:h-[68px] sm:px-[30px] sm:text-[17px] lg:h-[76px] lg:min-w-[340px] lg:px-[34px] lg:text-[19px]">
+          Begin a Private Conversation
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- FAQ SECTION -->
+  <!-- ========================================================= -->
+
+  <section id="faq" class="w-full overflow-hidden bg-[#F5DCFB] px-[17px] pt-[70px] pb-[30px] sm:px-[30px] sm:pt-[85px] md:px-[40px] lg:px-[60px] lg:pt-[100px] xl:px-[80px] 2xl:px-[110px]">
+
+    <div class="mx-auto grid w-full max-w-[1340px] grid-cols-1 gap-[55px] lg:grid-cols-[548px_1fr] lg:items-start lg:gap-[80px] xl:gap-[120px] 2xl:gap-[155px]">
+
+      <div class="w-full min-w-0">
+
+        <div class="relative h-[420px] w-full overflow-hidden rounded-[20px] sm:h-[500px] sm:rounded-[22px] md:h-[560px] lg:h-[620px] lg:w-[548px] lg:rounded-[24px] xl:w-[548px] 2xl:w-[548px]">
+          <img src="src/assets/images/faq-img.jpg" alt="Away From Work" class="h-full w-full object-cover" />
+          <div class="pointer-events-none absolute inset-0 bg-[#420A4B]/0"></div>
+        </div>
+
+        <div class="mt-[24px] flex items-center gap-[18px] sm:mt-[28px] sm:gap-[22px] lg:mt-[32px] lg:gap-[28px]">
+
+          <div class="flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-full border-[2px] border-[#420A4B] transition-all duration-300 hover:bg-[#420A4B] hover:shadow-[0_8px_25px_rgba(66,10,75,0.18)] sm:h-[74px] sm:w-[74px] lg:h-[87px] lg:w-[87px]">
+            <svg class="h-[28px] w-[28px] text-[#420A4B] transition-all duration-300 hover:text-[#F9CAFF] sm:h-[32px] sm:w-[32px] lg:h-[38px] lg:w-[38px]" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 30L30 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              <path d="M15 10H30V25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+
+          <p class="max-w-[430px] text-[13px] font-normal leading-[1.65] text-[#420A4B]/65 sm:text-[14px] lg:text-[15px]">
+            Independent and confidential by design. No employer access—
+            just a safe space for clarity and perspective.
+          </p>
+
+        </div>
+
+      </div>
+
+      <div id="faq-list" class="flex w-full min-w-0 flex-col gap-[16px] sm:gap-[18px] lg:gap-[22px]">
+
+        <div class="faq-item w-full overflow-hidden rounded-[24px] border border-[#420A4B]/15 bg-transparent transition-all duration-300 ease-out hover:border-[#420A4B]/30 hover:bg-[#F8D8FC] lg:rounded-[32px]">
+          <button type="button" class="faq-question flex min-h-[72px] w-full items-center justify-between gap-4 px-[18px] text-left sm:min-h-[78px] sm:px-[22px] lg:min-h-[84px] lg:px-[24px]" aria-expanded="false">
+            <span class="min-w-0 text-[16px] font-normal leading-[1.4] text-[#420A4B]/50 sm:text-[18px] lg:text-[20px]">How Is Away From Work Different From Workplace Feedback?</span>
+            <span class="faq-icon flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-full bg-[#420A4B] text-[24px] font-normal leading-none text-white transition-all duration-300 hover:scale-105 sm:h-[40px] sm:w-[40px] lg:h-[43px] lg:w-[43px] lg:text-[28px]">+</span>
+          </button>
+          <div class="faq-answer grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-in-out">
+            <div class="overflow-hidden">
+              <p class="px-[18px] pb-[20px] pr-[60px] text-[13px] leading-[1.65] text-[#420A4B]/60 sm:px-[22px] sm:text-[14px] lg:px-[24px] lg:pb-[22px] lg:pr-[90px] lg:text-[15px]">
+                Away From Work provides an independent and confidential space
+                outside traditional workplace feedback systems, allowing you
+                to speak openly without workplace oversight.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item w-full overflow-hidden rounded-[24px] border border-[#420A4B]/15 bg-transparent transition-all duration-300 ease-out hover:border-[#420A4B]/30 hover:bg-[#F8D8FC] lg:rounded-[32px]">
+          <button type="button" class="faq-question flex min-h-[72px] w-full items-center justify-between gap-4 px-[18px] text-left sm:min-h-[78px] sm:px-[22px] lg:min-h-[84px] lg:px-[24px]" aria-expanded="false">
+            <span class="min-w-0 text-[16px] font-normal leading-[1.4] text-[#420A4B]/50 sm:text-[18px] lg:text-[20px]">Is What I Share Confidential?</span>
+            <span class="faq-icon flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-full bg-[#420A4B] text-[24px] font-normal leading-none text-white sm:h-[40px] sm:w-[40px] lg:h-[43px] lg:w-[43px] lg:text-[28px]">+</span>
+          </button>
+          <div class="faq-answer grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-in-out">
+            <div class="overflow-hidden">
+              <p class="px-[18px] pb-[20px] pr-[60px] text-[13px] leading-[1.65] text-[#420A4B]/60 sm:px-[22px] sm:text-[14px] lg:px-[24px] lg:pb-[22px] lg:pr-[90px] lg:text-[15px]">
+                Yes. Conversations are designed to remain independent and
+                confidential, with no employer or workplace access to what
+                you share.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item w-full overflow-hidden rounded-[24px] border border-[#420A4B]/15 bg-transparent transition-all duration-300 ease-out hover:border-[#420A4B]/30 hover:bg-[#F8D8FC] lg:rounded-[32px]">
+          <button type="button" class="faq-question flex min-h-[72px] w-full items-center justify-between gap-4 px-[18px] text-left sm:min-h-[78px] sm:px-[22px] lg:min-h-[84px] lg:px-[24px]" aria-expanded="false">
+            <span class="min-w-0 text-[16px] font-normal leading-[1.4] text-[#420A4B]/50 sm:text-[18px] lg:text-[20px]">Who Is This Service For?</span>
+            <span class="faq-icon flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-full bg-[#420A4B] text-[24px] font-normal leading-none text-white sm:h-[40px] sm:w-[40px] lg:h-[43px] lg:w-[43px] lg:text-[28px]">+</span>
+          </button>
+          <div class="faq-answer grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-in-out">
+            <div class="overflow-hidden">
+              <p class="px-[18px] pb-[20px] pr-[60px] text-[13px] leading-[1.65] text-[#420A4B]/60 sm:px-[22px] sm:text-[14px] lg:px-[24px] lg:pb-[22px] lg:pr-[90px] lg:text-[15px]">
+                This service is designed for working adults who want a private
+                space to reflect, gain clarity, and discuss workplace-related
+                thoughts independently.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item is-open w-full overflow-hidden rounded-[24px] border border-[#420A4B]/20 transition-all duration-300 ease-out hover:border-[#420A4B]/30 hover:bg-[#F8D8FC] lg:rounded-[32px]">
+          <button type="button" class="faq-question flex min-h-[72px] w-full items-start justify-between gap-4 px-[18px] pt-[17px] text-left sm:min-h-[78px] sm:px-[22px] sm:pt-[19px] lg:min-h-[84px] lg:px-[24px] lg:pt-[20px]" aria-expanded="false">
+            <span class="min-w-0 pt-[1px] text-[16px] font-medium leading-[1.4] text-[#420A4B]/50 sm:text-[18px] lg:text-[20px]">Is This The Same As Therapy Or Counselling?</span>
+            <span class="faq-icon flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-full bg-[#420A4B] text-[24px] font-normal leading-none text-white sm:h-[40px] sm:w-[40px] lg:h-[43px] lg:w-[43px] lg:text-[28px]">+</span>
+          </button>
+          <div class="faq-answer grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-in-out">
+            <div class="overflow-hidden">
+              <p class="px-[18px] pb-[20px] pr-[60px] text-[13px] leading-[1.65] text-[#420A4B]/60 sm:px-[22px] sm:text-[14px] lg:px-[24px] lg:pb-[22px] lg:pr-[90px] lg:text-[15px]">
+                No. Away From Work is not therapy or counselling. It offers
+                confidential conversations focused on clarity and workplace
+                understanding.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item w-full overflow-hidden rounded-[24px] border border-[#420A4B]/15 bg-transparent transition-all duration-300 ease-out hover:border-[#420A4B]/30 hover:bg-[#F8D8FC] lg:rounded-[32px]">
+          <button type="button" class="faq-question flex min-h-[72px] w-full items-center justify-between gap-4 px-[18px] text-left sm:min-h-[78px] sm:px-[22px] lg:min-h-[84px] lg:px-[24px]" aria-expanded="false">
+            <span class="min-w-0 text-[16px] font-normal leading-[1.4] text-[#420A4B]/50 sm:text-[18px] lg:text-[20px]">Do Employers Or HR Have Any Access?</span>
+            <span class="faq-icon flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-full bg-[#420A4B] text-[24px] font-normal leading-none text-white sm:h-[40px] sm:w-[40px] lg:h-[43px] lg:w-[43px] lg:text-[28px]">+</span>
+          </button>
+          <div class="faq-answer grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-in-out">
+            <div class="overflow-hidden">
+              <p class="px-[18px] pb-[20px] pr-[60px] text-[13px] leading-[1.65] text-[#420A4B]/60 sm:px-[22px] sm:text-[14px] lg:px-[24px] lg:pb-[22px] lg:pr-[90px] lg:text-[15px]">
+                No. The service is designed independently from employers and
+                HR, giving you a private space without workplace oversight.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item w-full overflow-hidden rounded-[24px] border border-[#420A4B]/15 bg-transparent transition-all duration-300 ease-out hover:border-[#420A4B]/30 hover:bg-[#F8D8FC] lg:rounded-[32px]">
+          <button type="button" class="faq-question flex min-h-[72px] w-full items-center justify-between gap-4 px-[18px] text-left sm:min-h-[78px] sm:px-[22px] lg:min-h-[84px] lg:px-[24px]" aria-expanded="false">
+            <span class="min-w-0 text-[16px] font-normal leading-[1.4] text-[#420A4B]/50 sm:text-[18px] lg:text-[20px]">How Long Does A Conversation Take?</span>
+            <span class="faq-icon flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-full bg-[#420A4B] text-[24px] font-normal leading-none text-white sm:h-[40px] sm:w-[40px] lg:h-[43px] lg:w-[43px] lg:text-[28px]">+</span>
+          </button>
+          <div class="faq-answer grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-in-out">
+            <div class="overflow-hidden">
+              <p class="px-[18px] pb-[20px] pr-[60px] text-[13px] leading-[1.65] text-[#420A4B]/60 sm:px-[22px] sm:text-[14px] lg:px-[24px] lg:pb-[22px] lg:pr-[90px] lg:text-[15px]">
+                Conversations are designed around your needs and can be
+                completed within a focused, comfortable session.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item w-full overflow-hidden rounded-[24px] border border-[#420A4B]/15 bg-transparent transition-all duration-300 ease-out hover:border-[#420A4B]/30 hover:bg-[#F8D8FC] lg:rounded-[32px]">
+          <button type="button" class="faq-question flex min-h-[72px] w-full items-center justify-between gap-4 px-[18px] text-left sm:min-h-[78px] sm:px-[22px] lg:min-h-[84px] lg:px-[24px]" aria-expanded="false">
+            <span class="min-w-0 text-[16px] font-normal leading-[1.4] text-[#420A4B]/50 sm:text-[18px] lg:text-[20px]">How Do I Get Started?</span>
+            <span class="faq-icon flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-full bg-[#420A4B] text-[24px] font-normal leading-none text-white sm:h-[40px] sm:w-[40px] lg:h-[43px] lg:w-[43px] lg:text-[28px]">+</span>
+          </button>
+          <div class="faq-answer grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-in-out">
+            <div class="overflow-hidden">
+              <p class="px-[18px] pb-[20px] pr-[60px] text-[13px] leading-[1.65] text-[#420A4B]/60 sm:px-[22px] sm:text-[14px] lg:px-[24px] lg:pb-[22px] lg:pr-[90px] lg:text-[15px]">
+                You can begin by choosing a private conversation and following
+                the simple steps to start your session.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ========================================================= -->
+  <!-- FOOTER -->
+  <!-- ========================================================= -->
+
+  <footer class="w-full bg-[#F5DCFB] px-[17px] py-[27px] pt-[105px] lg:px-[105px]">
+
+    <div class="w-full overflow-hidden rounded-[32px] bg-[#1B001D] px-[24px] pt-[35px] pb-[30px] sm:px-[32px] sm:pt-[40px] sm:pb-[35px] lg:px-[50px] lg:pt-[45px] lg:pb-[44px]">
+
+      <div class="grid grid-cols-1 gap-[45px] lg:grid-cols-[2.3fr_1fr_1fr_1fr] lg:gap-[50px]">
+
+        <div class="min-w-0">
+
+          <a href="#" class="inline-flex items-center">
+            <img src="src/assets/images/logo.png" alt="Away From Work" class="h-[48px] w-auto object-contain sm:h-[54px] lg:h-[58px]" />
+          </a>
+
+          <p class="mt-[22px] max-w-[535px] text-[15px] font-normal leading-[1.8] text-white/75 sm:mt-[27px] sm:text-[16px] sm:leading-[1.95]">
+            Away From Work provides confidential, individual conversations for
+            reflection and clarity. It is not therapy, mental health treatment,
+            legal advice, or HR reporting.
+          </p>
+
+          <form class="mt-[28px] flex min-h-[58px] h-auto w-full max-w-[530px] flex-col items-stretch gap-[8px] rounded-[30px] border border-[#F9CAFF]/55 p-[4px] sm:mt-[34px] sm:h-[58px] sm:flex-row sm:items-center sm:gap-0 sm:rounded-full">
+
+            <input type="email" placeholder="Enter your email address" class="min-w-0 flex-1 bg-transparent px-[18px] py-[10px] text-[15px] text-white outline-none placeholder:text-white/45 sm:px-[27px] sm:py-0 sm:text-[16px]" />
+
+            <button type="submit" class="flex h-[48px] w-full shrink-0 items-center justify-center gap-[12px] rounded-full bg-[#DFA6E7] px-[21px] text-[15px] font-medium text-[#1B001D] transition-all duration-300 hover:scale-[1.02] hover:bg-[#F9CAFF] hover:shadow-[0_5px_20px_rgba(249,202,255,0.2)] sm:w-auto">
+              <span>Subscribe</span>
+              <span class="text-[22px] leading-none">→</span>
+            </button>
+
+          </form>
+
+        </div>
+
+        <div class="relative left-0 lg:left-[70px]">
+
+          <h3 class="text-[24px] font-medium leading-none text-[#D9A6DF] sm:text-[26px] lg:text-[27px]">Explore</h3>
+
+          <nav class="mt-[20px] flex flex-col gap-[14px] sm:mt-[25px] sm:gap-[17px]">
+            <a href="#" class="text-[15px] text-white/75 transition-colors duration-200 hover:text-[#F9CAFF]">Home</a>
+            <a href="#" class="text-[15px] text-white/75 transition-colors duration-200 hover:text-[#F9CAFF]">How It Works</a>
+            <a href="#" class="text-[15px] text-white/75 transition-colors duration-200 hover:text-[#F9CAFF]">Who It's For</a>
+            <a href="#" class="text-[15px] text-white/75 transition-colors duration-200 hover:text-[#F9CAFF]">Privacy & Ethics</a>
+            <a href="#" class="text-[15px] text-white/75 transition-colors duration-200 hover:text-[#F9CAFF]">About</a>
+          </nav>
+
+        </div>
+
+        <div class="relative left-0 lg:left-[70px]">
+
+          <h3 class="text-[24px] font-medium leading-none text-[#D9A6DF] sm:text-[26px] lg:text-[27px]">Support</h3>
+
+          <nav class="mt-[20px] flex flex-col gap-[14px] sm:mt-[25px] sm:gap-[17px]">
+            <a href="#faq" class="text-[15px] text-white/75 transition-colors duration-200 hover:text-[#F9CAFF]">FAQ</a>
+            <a href="#" class="text-[15px] text-white/75 transition-colors duration-200 hover:text-[#F9CAFF]">Contact</a>
+            <a href="#" class="text-[15px] text-white/75 transition-colors duration-200 hover:text-[#F9CAFF]">Client Portal / Sign In</a>
+          </nav>
+
+        </div>
+
+        <div class="relative left-0 lg:left-[70px]">
+
+          <h3 class="text-[24px] font-medium leading-none text-[#D9A6DF] sm:text-[26px] lg:text-[27px]">Legal</h3>
+
+          <nav class="mt-[20px] flex flex-col gap-[14px] sm:mt-[25px] sm:gap-[17px]">
+            <a href="#" class="text-[15px] text-white/75 transition-colors duration-200 hover:text-[#F9CAFF]">Terms of Use</a>
+            <a href="#" class="text-[15px] text-white/75 transition-colors duration-200 hover:text-[#F9CAFF]">Privacy Policy</a>
+            <a href="#" class="text-[15px] text-white/75 transition-colors duration-200 hover:text-[#F9CAFF]">Disclaimer</a>
+          </nav>
+
+        </div>
+
+      </div>
+
+      <div class="mt-[40px] flex min-h-[73px] w-full flex-col items-center justify-between gap-[20px] rounded-[18px] bg-[#351438] px-[15px] py-[15px] text-center sm:mt-[48px] sm:px-[20px] sm:py-[10px] lg:mt-[54px] lg:flex-row lg:gap-[25px] lg:text-left">
+
+        <p class="max-w-full text-[14px] font-normal leading-[1.5] text-white/75 sm:text-[15px] lg:text-[16px] lg:leading-[1.4]">
+          © 2026 Away From Work, LLC. All rights reserved.
+          Designed by Bmybrand.
+        </p>
+
+        <div class="flex shrink-0 flex-wrap items-center justify-center gap-[9px] sm:gap-[13px]">
+
+          <a href="#" aria-label="Facebook" class="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border border-[#DFA6E7] text-[19px] font-semibold text-[#DFA6E7] transition-all duration-300 hover:bg-[#DFA6E7] hover:text-[#1B001D] sm:h-[42px] sm:w-[42px] sm:text-[20px]">f</a>
+
+          <a href="#" aria-label="Twitter" class="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border border-[#DFA6E7] text-[16px] font-semibold text-[#DFA6E7] transition-all duration-300 hover:bg-[#DFA6E7] hover:text-[#1B001D] sm:h-[42px] sm:w-[42px] sm:text-[17px]">𝕏</a>
+
+          <a href="#" aria-label="YouTube" class="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border border-[#DFA6E7] text-[16px] font-semibold text-[#DFA6E7] transition-all duration-300 hover:bg-[#DFA6E7] hover:text-[#1B001D] sm:h-[42px] sm:w-[42px] sm:text-[17px]">▶</a>
+
+          <a href="#" aria-label="LinkedIn" class="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border border-[#DFA6E7] text-[15px] font-semibold text-[#DFA6E7] transition-all duration-300 hover:bg-[#DFA6E7] hover:text-[#1B001D] sm:h-[42px] sm:w-[42px] sm:text-[16px]">in</a>
+
+          <a href="#" aria-label="Instagram" class="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full border border-[#DFA6E7] text-[17px] text-[#DFA6E7] transition-all duration-300 hover:bg-[#DFA6E7] hover:text-[#1B001D] sm:h-[42px] sm:w-[42px] sm:text-[18px]">◎</a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+  <script type="module" src="./src/main.js"></script>
+
+</body>
+</html>
